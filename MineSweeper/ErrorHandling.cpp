@@ -46,6 +46,9 @@ void ErrorHandling::checkOptionSelect(string &input)
 	// Check each character in the string
 	for (int i = 0; i < input.length(); i++)
 	{
+		// Get first value in string and check it. This may avoid all other checks
+
+
 		// IF position is a space
 		if (input[i] == ' ')
 		{
