@@ -106,7 +106,7 @@ int VGrid::flag(int colCoord, int rowCoord)
 	int  isFlagged = 1; // assume position can be flagged 
 
 	// find char at position
-	currentChar = vArray[(width * rowCoord) + c];
+	currentChar = vArray[(width * rowCoord) + rowCoord];
 
 	// if position can be flagged.
 	if (currentChar != 'F')

@@ -3,12 +3,14 @@
 
 */
 
-
-
 namespace System
 {
 	// coordinates used by the computer (user input - 1)
-	pair <int, int> coordinates;
+	struct Coordinates
+	{
+		int r = 0;
+		int c = 0;
+	};
 
 	// Basic user interface functions
 	void winner();

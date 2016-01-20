@@ -19,8 +19,6 @@ public:
 	void setDefaultMines(int m);
 
 	int calcMines(int gameMode);
-	void inputGridSize(int gameMode);		// This to go in MineSweeper Class
-
 
 private:
 	// default setup

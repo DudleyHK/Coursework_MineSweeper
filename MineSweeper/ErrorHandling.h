@@ -4,15 +4,12 @@
 
 
 */
-#include <iostream>
-using namespace std;
-
+#include <string>
 
 namespace ErrorHandling
 {
-	string checkHeightWidth(string input);
-	string checkMenusInput(string input);
+	// int errorNumber = 0; // THIS IS NOT LIKED BY THE COMPILER ? WHY?
 
-
-
+	int checkHeightWidth(std::string &input, int gameMode);
+	int checkMenusInput(std::string input);
 }

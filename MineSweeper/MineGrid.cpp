@@ -24,10 +24,6 @@ MGrid::~MGrid()
 {
 	delete[] mArray;
 	mArray = NULL;
-
-	height = 0;
-	width = 0;
-	nMines = 0;
 }
 
 
@@ -132,28 +128,9 @@ void MGrid::placeMines()
 
 int MGrid::dig(int colCoord, int rowCoord)
 {
-	int isSafe = 1; // assume player is safe
+	int isSafe = 1;
 	int currVal = 0;
 	int counter = 0;
-
-	int nR = 0;
-	int nC = 0;
-
-	int newNRM = 0;
-	int newNCM = 0;
-
-	int newNRP = 0;
-	int newNCP = 0;
-
-	// making equal to vArray
-	nR = r - 1;
-	nC = c - 1;
-
-	newNRM = nR - 1;
-	newNCM = nC - 1;
-
-	newNRP = nR + 1;
-	newNCP = nC + 1;
 
 
 
@@ -164,9 +141,9 @@ int MGrid::dig(int colCoord, int rowCoord)
 	if (currVal != -1)
 	{
 		// FOR 8 adjenscent positions
-		for (int row = newNRM; row <= newNRP; row++)
+		for (int row = rowCoord - 1; row <= rowCoord + 1; row++)
 		{
-			for (int col = newNCM; col <= newNCP; col++)
+			for (int col = colCoord - 1; col <= colCoord + 1; col++)
 			{
 				// IF position in bounds
 				if (row >= 0 && row < height)
@@ -185,7 +162,7 @@ int MGrid::dig(int colCoord, int rowCoord)
 		}
 
 		// SET value at position to value of counter
-		mArray[(width*nR) + nC] = counter;
+		mArray[(width*rowCoord) + colCoord] = counter;
 	}
 	else
 	{

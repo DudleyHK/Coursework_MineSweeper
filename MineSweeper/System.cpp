@@ -7,8 +7,6 @@
 
 #include <iostream>
 using namespace std;
-using namespace System;
-
 
 
 void System::welcome()
@@ -48,6 +46,7 @@ void System::winner()
 	cout << "/t:::::::::::::::" << endl;
 	cout << "/t::!!YOU WIN!!::" << endl;
 	cout << "/t:::::::::::::::" << endl;
+	cout << "__________________________________________________________" << endl;
 	cout << endl << endl;
 }
 
@@ -58,6 +57,7 @@ void System::looser()
 	cout << "/t:::::::::::::::" << endl;
 	cout << "/t:( YOU LOOSE ):" << endl;
 	cout << "/t:::::::::::::::" << endl;
+	cout << "__________________________________________________________" << endl;
 	cout << endl << endl;
 }
 

@@ -13,6 +13,11 @@
 #include "VisualGrid.h"
 #include "Settings.h"
 #include "System.h"
+#include "ErrorHandling.h"
+
+using namespace System;
+using namespace ErrorHandling;
+
 
 class MineSweeper
 {
@@ -21,6 +26,8 @@ public:
 	MGrid mineGrid;
 	VGrid visualGrid;
 	Settings settings;
+
+	Coordinates coordinates;
 
 	/*************************Data Access******************************/
 
@@ -52,7 +59,10 @@ private:
 	/*SIZE AND COORDINATE INFORMATION*/
 	int height, width, numberOfMines;
 	int inputCoordC, inputCoordR;
+
+	/*INPUT VALIDATION*/
 	string validateUserInput;
+	int errorNumber;
 
 	/*MODE AND CONTINUE OPTION*/
 	int gameMode;

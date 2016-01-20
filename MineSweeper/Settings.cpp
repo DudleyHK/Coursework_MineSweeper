@@ -47,11 +47,6 @@ int Settings::getWidth()
 	return width;
 }
 
-int Settings::getNumMines()
-{
-	return numberOfMines;
-}
-
 /************************Functionality*****************************/
 
 int Settings::calcMines(int gameMode)
@@ -80,11 +75,4 @@ int Settings::calcMines(int gameMode)
 	}
 
 	return numberOfMines;
-}
-
-void Settings::inputGridSize(int gMode)
-{
-			}
-		}
-	} // END WHILE
 }
