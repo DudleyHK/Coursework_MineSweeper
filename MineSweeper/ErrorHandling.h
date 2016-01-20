@@ -5,11 +5,13 @@
 
 */
 #include <string>
+using namespace std;
 
 namespace ErrorHandling
 {
-	// int errorNumber = 0; // THIS IS NOT LIKED BY THE COMPILER ? WHY?
+	// int errorNumber; // THIS IS NOT LIKED BY THE COMPILER ? WHY?
 
-	int checkHeightWidth(std::string &input, int gameMode);
-	int checkMenusInput(std::string input);
+	int checkHeightWidth(string &input, int gameMode);
+	void checkOptionSelect(string &input);
+	void printMessage(int errorNumber);
 }

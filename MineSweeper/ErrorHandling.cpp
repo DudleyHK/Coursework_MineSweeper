@@ -31,8 +31,66 @@ int ErrorHandling::checkHeightWidth(string &input, int gameMode)
 		}
 	}
 
-
 	return errorNumber;
+}
+
+/*This function checks if the user has entered a valid input at any menu stage.
+It checks for one numerical input from the user and will return an error if anything
+else is detected. could possibley use this function to check the continueOrQuit
+function in the MineSweeper object*/
+void ErrorHandling::checkOptionSelect(string &input)
+{
+	int errorNumber = 0;
+	int numberCounter = 0;
+
+	// Check each character in the string
+	for (int i = 0; i < input.length(); i++)
+	{
+		// IF position is a space
+		if (input[i] == ' ')
+		{
+			continue;
+		}
+
+		// if the value in position is numerical +1 to counter
+		if (isdigit(input[i]))
+		{
+			numberCounter++;
+		}
+
+		// IF position is NOT isDigit
+		if (!isdigit(input[i]))
+		{
+			errorNumber = 99;
+			throw errorNumber;
+		}
+		else if (numberCounter > 1)
+		{
+			errorNumber = 98;
+			throw errorNumber;
+		}
+	}
+}
+
+
+/*This function prints out a message depending on the number passed in*/
+void ErrorHandling::printMessage(int errorNumber)
+{
+	switch (errorNumber)
+	{
+	case 99:
+		cout << endl;
+		cout << "# Error: invalid input." << endl;
+		break;
+	case 98:
+		cout << endl;
+		cout << "# Error: too many selected values." << endl;
+		break;
+	}// END switch
+
+
+
+
 }
 
 

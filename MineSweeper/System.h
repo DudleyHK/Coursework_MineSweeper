@@ -17,5 +17,6 @@ namespace System
 	void looser();
 	void welcome();
 	void instructions();
+	void settingsInterface();
 
 }

@@ -62,3 +62,26 @@ void System::looser()
 }
 
 
+
+void System::settingsInterface()
+{
+	cout << "SETTINGS MENU" << endl;
+	cout << "--------------" << endl << endl;
+
+	cout << "Default: 5 x 5 grid. 5 Mines" << endl << endl;
+
+	cout << "Easy:\tMin 3 x 3. 10% Mines" << endl;
+	cout << "Medium: Min 5 x 5. 15% Mines" << endl;
+	cout << "Hard:\tMin 8 x 8. 25% Mines" << endl << endl;
+
+	cout << "Max Grid Size: 20 x 20" << endl;
+	cout << endl << endl;
+
+
+	cout << "Select Mode:" << endl;
+	cout << "----------" << endl;
+	cout << "0. Default Mode" << endl;
+	cout << "1. Easy" << endl;
+	cout << "2. Medium" << endl;
+	cout << "3. Hard" << endl;
+}

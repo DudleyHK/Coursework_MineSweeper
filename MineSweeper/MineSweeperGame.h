@@ -62,7 +62,7 @@ private:
 
 	/*INPUT VALIDATION*/
 	string validateUserInput;
-	int errorNumber;
+	int errorNumber, isValid;
 
 	/*MODE AND CONTINUE OPTION*/
 	int gameMode;

@@ -12,6 +12,8 @@
 	SEE CODING STYLE DOCUMENT. HEIGHT AND WIDTH COULD BE INPUT IN THE MINESWEEPER OBJECT AND THEREFORE CHECKED FOR ERRORS.
 	ALSO USE TRY AND CATCH FUNCITONS TO CHECK FOR ERRORS
 
+	SHORT INT HAS RANGE FROM -32,768 - 32767 AND IS ONLY 2 BYTES. NORMAL INT RANGES FROM -2MIL TO 2MIL AND IS 4 BYTES
+
 */
 
 #include "MineSweeperGame.h"
@@ -114,6 +116,8 @@ int MineSweeper::mainMenu()
 		// Read user input
 		cin >> userInput;
 
+		/*VALIDATE INPUT*/
+
 
 		// continue if input is correct
 		if (isValid == 1)
@@ -179,63 +183,67 @@ int MineSweeper::settingsMenu()
 	bool settingsMenuRepeat = false;
 
 
-	settingsMenuRepeat = true;
+	// Print out the settingsMenu
+	System::settingsInterface();
 
+	// Run loop until user input is valid
+	settingsMenuRepeat = true;
 	while (settingsMenuRepeat)
 	{
-		cout << "SETTINGS MENU" << endl;
-		cout << "--------------" << endl << endl;
-
-		cout << "Default: 5 x 5 grid. 5 Mines" << endl << endl;
-
-		cout << "Easy:\tMin 3 x 3. 10% Mines" << endl;
-		cout << "Medium: Min 5 x 5. 15% Mines" << endl;
-		cout << "Hard:\tMin 8 x 8. 25% Mines" << endl << endl;
-
-		cout << "Max Grid Size: 20 x 20" << endl;
-		cout << endl << endl;
-
-
-		cout << "Select Mode:" << endl;
-		cout << "----------" << endl;
-		cout << "0. Default Mode" << endl;
-		cout << "1. Easy" << endl;
-		cout << "2. Medium" << endl;
-		cout << "3. Hard" << endl;
 		cout << "Selection: ";
 
 		cin >> validateUserInput;
+		getline(cin, validateUserInput);
 
 		/**VALIDATE INPUT***/
-
-		switch (userInput)
+		try
 		{
-		case 0:
-			gameMode = 0;
-			settingsMenuRepeat = false;
+			ErrorHandling::checkOptionSelect(validateUserInput);
 
-			break;
+			// if the input comes back valid
+			// set isValid to true and parse answer and save as userInput
+			userInput = stoi(validateUserInput);
+			isValid = 1;
+		}
+		catch (int n)
+		{
+			// Print error message and SET isValid to falase;
+			ErrorHandling::printMessage(n);
+			isValid = 0;
+		}
 
-		case 1:
-			gameMode = 1;
-			settingsMenuRepeat = false;
-			break;
 
-		case 2:
-			gameMode = 2;
-			settingsMenuRepeat = false;
-			break;
+		if (isValid == 1)
+		{
+			switch (userInput)
+			{
+			case 0:
+				gameMode = 0;
+				settingsMenuRepeat = false;
 
-		case 3:
-			gameMode = 3;
-			settingsMenuRepeat = false;
-			break;
+				break;
 
-		default:
-			cout << "Invaild input." << endl;
-			break;
+			case 1:
+				gameMode = 1;
+				settingsMenuRepeat = false;
+				break;
 
-		}// END userInput switch
+			case 2:
+				gameMode = 2;
+				settingsMenuRepeat = false;
+				break;
+
+			case 3:
+				gameMode = 3;
+				settingsMenuRepeat = false;
+				break;
+
+			default:
+				cout << "Invaild input." << endl;
+				break;
+
+			}// END switch
+		}
 	}// END menu loop
 
 
@@ -362,8 +370,8 @@ void MineSweeper::inputGridSize()
 {
 	bool isRepeat = false;
 
-		cout << "Input size in format (Height then Width ie 5 10): " << endl;
-		getline(cin,validateUserInput);
+		cout << "Input size in format (height - width) For Example: 4 6 " << endl;
+		
 
 		cout << "----------------------------------------------" << endl;
 
@@ -375,7 +383,7 @@ void MineSweeper::inputGridSize()
 		/*****VALIDATE INPUT****/
 		try
 		{
-			checkHeightWidth(validateUserInput, gameMode);	// test the input
+			ErrorHandling::checkHeightWidth(validateUserInput, gameMode);	// test the input
 			throw errorNumber;												// if error is found
 
 			// IF it input is valid break out of loop
@@ -383,12 +391,7 @@ void MineSweeper::inputGridSize()
 		}
 		catch (int n)	// catch error number
 		{
-			switch (n)
-			{
-			case 99:
-				cout << "# Error: input must be numerical." << endl; // enxample
-				break;
-			}// END switch
+			ErrorHandling::printMessage(n);
 		}
 	}// END while
 }
@@ -508,7 +511,7 @@ void MineSweeper::changeIntToChar()
 	case -1:
 		setChar = '!';
 		break;
-	case 0setChar
+	case 0:
 		setChar = '0';
 		break;
 	case 1:
