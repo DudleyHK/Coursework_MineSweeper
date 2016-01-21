@@ -53,6 +53,7 @@ public:
 	void changeIntToChar();
 	void findMinePositions();
 	int continueOrQuit();
+	void nullValidationChar();
 	
 private:
 

@@ -29,7 +29,7 @@ int main()
 	// cerate instance of the mineSweeper class.
 	MineSweeper msGame;
 
-	int continueGame = 1;
+	bool continueGame = true;
 	bool gameLoop = false;
 
 
@@ -37,12 +37,12 @@ int main()
 
 	while (gameLoop)
 	{
-		System::welcome();							// Print title
+		System::welcome();					// Print title
 		continueGame = msGame.mainMenu();	// Goto MainMenu
 
 
 		// IF the player wishes to exit the game
-		if (continueGame == 0)
+		if (continueGame == false)
 		{
 			// break out of the loop
 			gameLoop = false;
@@ -59,7 +59,7 @@ MineSweeper::MineSweeper()
 {
 	// set game mode variable to unused
 	gameMode = -1;
-	continueGame = 1;
+	continueGame = false;
 }
 
 MineSweeper::~MineSweeper()
@@ -96,55 +96,65 @@ int MineSweeper::mainMenu()
 {
 	int isValid = 1;		// Assume value is correct.
 	int userInput = 0;
-
 	bool mainMenuRepeat = false;
 
 
-	mainMenuRepeat = true;
+	// Display main Menu
+	System::mainMenuInterface();
 
-	// Enter menu loop
+	// RUN loop until input is valid
+	mainMenuRepeat = true;
 	while (mainMenuRepeat)
 	{
-		cout << "MAIN MENU" << endl;
-		cout << "----------" << endl << endl;
-
-		cout << "1. Play Game" << endl;
-		cout << "2. Settings" << endl;
-		cout << "3. Exit" << endl;
-		cout << "Selection: ";
-
 		// Read user input
-		cin >> userInput;
-
-		/*VALIDATE INPUT*/
+		getline(cin, validateUserInput);
 
 
-		// continue if input is correct
+		/**VALIDATE INPUT***/
+		try
+		{
+			ErrorHandling::checkOptionSelect(validateUserInput);
+
+			// if the input comes back valid
+			userInput = stoi(validateUserInput);	// convert string to int
+			isValid = 1;							// SET isValid to TRUE
+		}
+		catch (int n)
+		{
+			// Print error message and SET isValid to falase;
+			ErrorHandling::printMessage(n);
+			isValid = 0;
+		}
+
+
+		// IF input is correct
 		if (isValid == 1)
 		{
+			// RUN statement
 			switch (userInput)
 			{
 			case 1:
-				// IF difficultly has not been selected
+				// IF difficultly mode has NOT been selected
 				if (gameMode == -1)
 				{
-					//  set default mode
+					// SET default mode and values
 					gameMode = 0;
 					settings.setDefaultSize(5, 5);
 				}
 
+				/*****THIS NEEDS TO BE CLEARED UP*****/
 				getSize();
 
-
-				system("cls");
-				System::welcome();
-				continueGame = loadGame();
 				
+				system("cls");				// Clear console
+				System::welcome();			// Print title
+				continueGame = loadGame();	// Load game
+
 
 				break;
 			case 2:
 				// clear the screen
-				system("cls"); 
+				system("cls");
 				System::welcome();
 				gameMode = settingsMenu();
 
@@ -161,7 +171,8 @@ int MineSweeper::mainMenu()
 		}
 		else
 		{
-			cout << "Invalid input. Please check and try agian." << endl;
+			cout << "Try again..." << endl;
+			cout << "Selection: ";
 		}
 
 
@@ -179,42 +190,43 @@ int MineSweeper::mainMenu()
 
 int MineSweeper::settingsMenu()
 {
+	// declare variables
 	int userInput = 0;
 	bool settingsMenuRepeat = false;
 
-
-	// Print out the settingsMenu
+	// display the menu
 	System::settingsInterface();
+
 
 	// Run loop until user input is valid
 	settingsMenuRepeat = true;
 	while (settingsMenuRepeat)
 	{
-		cout << "Selection: ";
-
-		cin >> validateUserInput;
+		// READ input
 		getline(cin, validateUserInput);
+
 
 		/**VALIDATE INPUT***/
 		try
 		{
+			// call specific validation function
 			ErrorHandling::checkOptionSelect(validateUserInput);
 
 			// if the input comes back valid
-			// set isValid to true and parse answer and save as userInput
 			userInput = stoi(validateUserInput);
 			isValid = 1;
 		}
 		catch (int n)
 		{
-			// Print error message and SET isValid to falase;
+			// Print error message and SET isValid to false;
 			ErrorHandling::printMessage(n);
 			isValid = 0;
 		}
 
-
+		// If no error are detected
 		if (isValid == 1)
 		{
+			// RUN statement
 			switch (userInput)
 			{
 			case 0:
@@ -238,11 +250,16 @@ int MineSweeper::settingsMenu()
 				settingsMenuRepeat = false;
 				break;
 
-			default:
-				cout << "Invaild input." << endl;
+			default: // final check incase user has entered invalid numerical value
+				ErrorHandling::printMessage(99);
 				break;
 
 			}// END switch
+		}
+		else
+		{
+			cout << "Try again..." << endl;
+			cout << "Selection: ";
 		}
 	}// END menu loop
 

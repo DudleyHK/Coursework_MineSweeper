@@ -18,5 +18,6 @@ namespace System
 	void welcome();
 	void instructions();
 	void settingsInterface();
+	void mainMenuInterface();
 
 }
