@@ -18,7 +18,7 @@ public:
 	void setDefaultSize(int h, int w);
 	void setDefaultMines(int m);
 
-	int calcMines(int gameMode);
+	int calcMines(char gameMode);
 
 private:
 	// default setup

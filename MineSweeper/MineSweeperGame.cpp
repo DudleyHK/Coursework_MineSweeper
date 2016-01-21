@@ -57,9 +57,9 @@ int main()
 
 MineSweeper::MineSweeper()
 {
-	// set game mode variable to unused
-	gameMode = -1;
-	continueGame = false;
+	// SET game mode variable as UNUSED
+	gameMode = 'N';
+	continueGame = true;
 }
 
 MineSweeper::~MineSweeper()
@@ -90,55 +90,38 @@ void MineSweeper::createNewCoords()
 }
 
 
-/*************************Functionality*****************************/
+/****************************PreGame********************************/
 
-int MineSweeper::mainMenu()
+bool MineSweeper::mainMenu()
 {
-	int isValid = 1;		// Assume value is correct.
-	int userInput = 0;
-	bool mainMenuRepeat = false;
+	bool isRepeat = false;
 
 
 	// Display main Menu
 	System::mainMenuInterface();
 
 	// RUN loop until input is valid
-	mainMenuRepeat = true;
-	while (mainMenuRepeat)
+	isRepeat = true;
+	while (isRepeat)
 	{
 		// Read user input
 		getline(cin, validateUserInput);
 
-
-		/**VALIDATE INPUT***/
-		try
-		{
-			ErrorHandling::checkOptionSelect(validateUserInput);
-
-			// if the input comes back valid
-			userInput = stoi(validateUserInput);	// convert string to int
-			isValid = 1;							// SET isValid to TRUE
-		}
-		catch (int n)
-		{
-			// Print error message and SET isValid to falase;
-			ErrorHandling::printMessage(n);
-			isValid = 0;
-		}
-
+		// return TRUE if input is valid
+		isValid = menuValidator();
 
 		// IF input is correct
-		if (isValid == 1)
+		if (isValid == true)
 		{
 			// RUN statement
 			switch (userInput)
 			{
 			case 1:
 				// IF difficultly mode has NOT been selected
-				if (gameMode == -1)
+				if (gameMode == 'N')
 				{
 					// SET default mode and values
-					gameMode = 0;
+					gameMode = '0';
 					settings.setDefaultSize(5, 5);
 				}
 
@@ -153,34 +136,37 @@ int MineSweeper::mainMenu()
 
 				break;
 			case 2:
-				// clear the screen
-				system("cls");
-				System::welcome();
-				gameMode = settingsMenu();
+				system("cls");				// Clear console
+				System::welcome();			// Print title
+				gameMode = settingsMenu();	// Goto settingsMenu
 
 				break;
 			case 3:
-				continueGame = 0;
+				continueGame = false;
 				break;
 
 
 			default:
-				cout << "Enter value 1 - 3" << endl;
+				// final check incase user has entered invalid numerical value
+				cout << endl;
+				cout << "Menu value " << userInput << " does not exist" << endl;
+				System::tryAgain();	
+
 				break;
+
 			} // END userInput switch
 		}
 		else
 		{
-			cout << "Try again..." << endl;
-			cout << "Selection: ";
+			System::tryAgain();
 		}
 
 
-		// IF variable is 0
-		if (continueGame == 0)
+		// IF variable is false
+		if (continueGame == false)
 		{
 			// break loop to exit
-			mainMenuRepeat = false;
+			isRepeat = false;
 		}
 	} // END menu loop
 
@@ -188,84 +174,71 @@ int MineSweeper::mainMenu()
 	return continueGame;
 }
 
-int MineSweeper::settingsMenu()
+char MineSweeper::settingsMenu()
 {
 	// declare variables
-	int userInput = 0;
-	bool settingsMenuRepeat = false;
+	bool isRepeat = false;
 
 	// display the menu
 	System::settingsInterface();
 
 
 	// Run loop until user input is valid
-	settingsMenuRepeat = true;
-	while (settingsMenuRepeat)
+	isRepeat = true;
+	while (isRepeat)
 	{
 		// READ input
 		getline(cin, validateUserInput);
 
 
-		/**VALIDATE INPUT***/
-		try
-		{
-			// call specific validation function
-			ErrorHandling::checkOptionSelect(validateUserInput);
-
-			// if the input comes back valid
-			userInput = stoi(validateUserInput);
-			isValid = 1;
-		}
-		catch (int n)
-		{
-			// Print error message and SET isValid to false;
-			ErrorHandling::printMessage(n);
-			isValid = 0;
-		}
+		// return TRUE if input is valid
+		isValid = menuValidator();
 
 		// If no error are detected
-		if (isValid == 1)
+		if (isValid == true)
 		{
 			// RUN statement
 			switch (userInput)
 			{
 			case 0:
-				gameMode = 0;
-				settingsMenuRepeat = false;
+				gameMode = '0';
+				isRepeat = false;
 
 				break;
 
 			case 1:
-				gameMode = 1;
-				settingsMenuRepeat = false;
+				gameMode = '1';
+				isRepeat = false;
 				break;
 
 			case 2:
-				gameMode = 2;
-				settingsMenuRepeat = false;
+				gameMode = '2';
+				isRepeat = false;
 				break;
 
 			case 3:
-				gameMode = 3;
-				settingsMenuRepeat = false;
+				gameMode = '3';
+				isRepeat = false;
 				break;
 
-			default: // final check incase user has entered invalid numerical value
-				ErrorHandling::printMessage(99);
+			default: 
+				// final check incase user has entered invalid numerical value
+				cout << endl;
+				cout << "Menu value " << userInput << " does not exist" << endl;
+				System::tryAgain();
 				break;
 
 			}// END switch
 		}
 		else
 		{
-			cout << "Try again..." << endl;
-			cout << "Selection: ";
+			System::tryAgain();
 		}
 	}// END menu loop
 
 
 	// IF default has NOT been selected
-	if (gameMode != 0)
+	if (gameMode != '0')
 	{
 		inputGridSize();				// USER INPUT size
 	}
@@ -274,7 +247,7 @@ int MineSweeper::settingsMenu()
 		settings.setDefaultSize(5, 5);	// Use DEFAULT size
 	}
 
-	// CHECK GETSIZE FUNCTION HEIGH AND WIDTH STORED LOCALLY
+	/****CHECK GETSIZE FUNCTION HEIGH AND WIDTH STORED LOCALLY****/
 	getSize();
 
 
@@ -290,7 +263,7 @@ int MineSweeper::settingsMenu()
 /*This function sets and initialise the objects/ variables need to run the game.
 Including passing variable to the visual and mine objects. Initialsing both objects 
 arrays, assigning mines random positions and finally runnning the game.*/
-int MineSweeper::loadGame()
+bool MineSweeper::loadGame()
 {
 	passSize();
 	mineGrid.initialiseArray();
@@ -302,6 +275,8 @@ int MineSweeper::loadGame()
 	return continueGame;
 }
 
+/*************************Functionality*****************************/
+
 
 /*
 Return Key (This relates to playGame() and find()) :
@@ -312,7 +287,7 @@ Return Key (This relates to playGame() and find()) :
 4 = Invalid Letter
 5 = Invalid Coordinates
 */
-int MineSweeper::playGame()
+bool MineSweeper::playGame()
 {
 	bool inGame = false;
 	int valInput = 1;
@@ -400,7 +375,7 @@ void MineSweeper::inputGridSize()
 		/*****VALIDATE INPUT****/
 		try
 		{
-			ErrorHandling::checkHeightWidth(validateUserInput, gameMode);	// test the input
+			ErrorHandling::validateHeightWidth(validateUserInput, gameMode);	// test the input
 			throw errorNumber;												// if error is found
 
 			// IF it input is valid break out of loop
@@ -584,7 +559,7 @@ void MineSweeper::findMinePositions()
 }
 
 
-int MineSweeper::continueOrQuit()
+bool MineSweeper::continueOrQuit()
 {
 	char userInput = 'Y';
 	bool loop = false;
@@ -605,7 +580,7 @@ int MineSweeper::continueOrQuit()
 		switch (userInput)
 		{
 		case 'Y':
-			continueGame = 1;
+			continueGame = true;
 			loop = false;
 
 			// delete the memory 
@@ -618,7 +593,7 @@ int MineSweeper::continueOrQuit()
 			break;
 
 		case 'N':
-			continueGame = 0;
+			continueGame = false;
 			loop = false;
 			break;
 
@@ -628,4 +603,26 @@ int MineSweeper::continueOrQuit()
 		}
 	}
 	return continueGame;
+}
+
+
+/*This function only works when only ONE NUMERICAL output is needed.*/
+bool MineSweeper::menuValidator()
+{
+	try
+	{
+		ErrorHandling::validateMenuSelection(validateUserInput);
+
+		// if the input comes back valid
+		userInput = stoi(validateUserInput);	// convert string to int
+		isValid = true;							// SET isValid to TRUE
+	}
+	catch (char n)
+	{
+		// Print error message and SET isValid to falase;
+		ErrorHandling::printMessage(n);
+		isValid = false;
+	}
+
+	return isValid;
 }

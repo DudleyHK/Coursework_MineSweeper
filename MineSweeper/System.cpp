@@ -98,3 +98,11 @@ void System::mainMenuInterface()
 	cout << "3. Exit" << endl;
 	cout << "Selection: ";
 }
+
+
+void System::tryAgain()
+{
+	cout << "---------------------------------------" << endl;
+	cout << "Try again..." << endl;
+	cout << "Selection: ";
+}

@@ -17,7 +17,7 @@ using namespace ErrorHandling;
 /*This function takes the users input as a string allowing the program to 
 check the whole input for invalid characters. The function will return an 
 error number*/
-int ErrorHandling::checkHeightWidth(string &input, int gameMode)
+void ErrorHandling::validateHeightWidth(string &input, char gameMode)
 {
 	int errorNumber = 0;
 
@@ -27,54 +27,51 @@ int ErrorHandling::checkHeightWidth(string &input, int gameMode)
 		// IF position is NOT isDigit
 		if (!isdigit(input[i]))
 		{
-			errorNumber = 99;
+			errorNumber = '9';
 			break;
 		}
 	}
-
-	return errorNumber;
 }
 
 /*This function checks if the user has entered a valid input at any menu stage.
-It checks for one numerical input from the user and will return an error if anything
-else is detected. could possibley use this function to check the continueOrQuit
-function in the MineSweeper object*/
-void ErrorHandling::checkOptionSelect(string &input)
+It checks for one numerical input from the user and will throw an error if anything
+else is detected bar blank spaces. */
+void ErrorHandling::validateMenuSelection(string &input)
 {
-	int errorNumber = 0;
+	char errorNumber = '0';
 	int numberCounter = 0;
 
-	// Check each character in the char array
+	// Check each element in string
 	for (short i = 0; i < input.length(); i++)
 	{
-		// At each element of string check if the number is NOT a digit.
+		// IF element is NOT a digit.
 		if (!isdigit(input.at(i)))
 		{
-			// If the position is NOT a digit but a space
+			// IF element is a BLANK SPACE
 			if (input[i] == ' ')
 			{
-				// go to next iteration
+				// RUN next iteration
 				continue;
 			}
 			else
 			{
-				// throw error
-				errorNumber = 99;
+				// ERROR
+				errorNumber = '9';
 				throw errorNumber;
 			}
 		}
 
-		// if the value in position is numerical +1 to counter
+		// IF element is numerical
 		if (isdigit(input[i]))
 		{
 			numberCounter++;
 		}
 
-		
-		// Finally check the number counter to make sure only one value has been entered in the string.
+		// IF string has more than one number
 		if (numberCounter > 1)
 		{
-			errorNumber = 99;
+			// ERROR
+			errorNumber = '9';
 			throw errorNumber;
 		}
 	}
@@ -82,15 +79,15 @@ void ErrorHandling::checkOptionSelect(string &input)
 
 
 /*This function prints out a message depending on the number passed in*/
-void ErrorHandling::printMessage(int errorNumber)
+void ErrorHandling::printMessage(char errorNumber)
 {
 	switch (errorNumber)
 	{
-	case 99:
+	case '9':
 		cout << endl;
 		cout << "# Error: invalid input." << endl;
 		break;
-	case 98:
+	case '8':
 		cout << endl;
 		cout << "# Error: too many selected values." << endl;
 		break;

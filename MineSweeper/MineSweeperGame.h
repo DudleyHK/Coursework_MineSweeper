@@ -40,34 +40,36 @@ public:
 
 	/****************************PreGame*******************************/
 
-	int mainMenu();
-	int settingsMenu();
-	int loadGame();
+	bool mainMenu();
+	char settingsMenu();
+	bool loadGame();		
 
 	/*************************Functionality****************************/
 
-	int playGame();
+	bool playGame();
 	void inputGridSize();
 	int guessPosition();
 	void updateCounter();
 	void changeIntToChar();
 	void findMinePositions();
-	int continueOrQuit();
-	void nullValidationChar();
+	bool continueOrQuit();
+	bool menuValidator();
 	
 private:
 
 	/*SIZE AND COORDINATE INFORMATION*/
 	int height, width, numberOfMines;
 	int inputCoordC, inputCoordR;
+	int userInput;
 
 	/*INPUT VALIDATION*/
 	string validateUserInput;
-	int errorNumber, isValid;
+	char errorNumber;
+	bool isValid;
 
 	/*MODE AND CONTINUE OPTION*/
-	int gameMode;
-	int continueGame;
+	char gameMode;
+	bool continueGame;
 
 	/*FLAG INFORMATION*/
 	int correctFlags, totalFlags;

@@ -19,5 +19,6 @@ namespace System
 	void instructions();
 	void settingsInterface();
 	void mainMenuInterface();
+	void tryAgain();
 
 }

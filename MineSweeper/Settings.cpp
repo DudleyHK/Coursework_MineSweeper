@@ -49,7 +49,7 @@ int Settings::getWidth()
 
 /************************Functionality*****************************/
 
-int Settings::calcMines(int gameMode)
+int Settings::calcMines(char gameMode)
 {
 	int area = 0;
 
@@ -57,18 +57,18 @@ int Settings::calcMines(int gameMode)
 
 	switch (gameMode)
 	{
-	case 0:
+	case '0':
 		setDefaultMines(5);
 		break;
-	case 1:
+	case '1':
 		//easy 15%
 		numberOfMines = area * 0.15;
 		break;
-	case 2:
+	case '2':
 		// medium 25%
 		numberOfMines = area * 0.25;
 		break;
-	case 3:
+	case '3':
 		// hard 60%
 		numberOfMines = area * 0.4;
 		break;
