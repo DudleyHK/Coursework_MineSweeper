@@ -1,4 +1,4 @@
-/*
+/*e
 
 
 
@@ -8,6 +8,7 @@
 #include "ErrorHandling.h"
 
 #include <iostream>
+#include <string>
 using namespace std;
 using namespace ErrorHandling;
 
@@ -21,7 +22,7 @@ int ErrorHandling::checkHeightWidth(string &input, int gameMode)
 	int errorNumber = 0;
 
 	// FOR each char in the string
-	for (int i = 0; i < input.length(); i++)
+	for (short i = 0; i < input.length(); i++)
 	{
 		// IF position is NOT isDigit
 		if (!isdigit(input[i]))
@@ -43,16 +44,24 @@ void ErrorHandling::checkOptionSelect(string &input)
 	int errorNumber = 0;
 	int numberCounter = 0;
 
-	// Check each character in the string
-	for (int i = 0; i < input.length(); i++)
+	// Check each character in the char array
+	for (short i = 0; i < input.length(); i++)
 	{
-		// Get first value in string and check it. This may avoid all other checks
-
-
-		// IF position is a space
-		if (input[i] == ' ')
+		// At each element of string check if the number is NOT a digit.
+		if (!isdigit(input.at(i)))
 		{
-			continue;
+			// If the position is NOT a digit but a space
+			if (input[i] == ' ')
+			{
+				// go to next iteration
+				continue;
+			}
+			else
+			{
+				// throw error
+				errorNumber = 99;
+				throw errorNumber;
+			}
 		}
 
 		// if the value in position is numerical +1 to counter
@@ -61,15 +70,11 @@ void ErrorHandling::checkOptionSelect(string &input)
 			numberCounter++;
 		}
 
-		// IF position is NOT isDigit
-		if (!isdigit(input[i]))
+		
+		// Finally check the number counter to make sure only one value has been entered in the string.
+		if (numberCounter > 1)
 		{
 			errorNumber = 99;
-			throw errorNumber;
-		}
-		else if (numberCounter > 1)
-		{
-			errorNumber = 98;
 			throw errorNumber;
 		}
 	}
@@ -90,10 +95,6 @@ void ErrorHandling::printMessage(int errorNumber)
 		cout << "# Error: too many selected values." << endl;
 		break;
 	}// END switch
-
-
-
-
 }
 
 
