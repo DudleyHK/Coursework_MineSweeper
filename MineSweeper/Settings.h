@@ -12,16 +12,14 @@ public:
 	Settings();
 	~Settings();
 
-	int getHeight();
-	int getWidth();
-	int getNumMines();
-	void setDefaultSize(int h, int w);
+	int getDefaultHeight();
+	int getDefaultWidth();
 	void setDefaultMines(int m);
 
-	int calcMines(char gameMode);
+	int getNumberOfMines(int area, char gameMode);
 
 private:
 	// default setup
-	int height, width, numberOfMines;
+	int defaultHeight, defaultWidth, numberOfMines;
 };
 

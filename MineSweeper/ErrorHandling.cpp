@@ -17,18 +17,33 @@ using namespace ErrorHandling;
 /*This function takes the users input as a string allowing the program to 
 check the whole input for invalid characters. The function will return an 
 error number*/
-void ErrorHandling::validateHeightWidth(string &input, char gameMode)
+void ErrorHandling::validateHeightWidth(int height, int width, char gameMode)
 {
-	int errorNumber = 0;
+	char errorNumber = '0';
 
-	// FOR each char in the string
-	for (short i = 0; i < input.length(); i++)
+	// depending on the game mode 
+	if (gameMode == '1')
 	{
-		// IF position is NOT isDigit
-		if (!isdigit(input[i]))
+		if ((height < 3 || height > 20) || (width < 3 || width > 20))
 		{
-			errorNumber = '9';
-			break;
+			errorNumber = '8';
+			throw errorNumber;
+		}
+	}
+	else if (gameMode == '2')
+	{
+		if ((height < 5 || height > 20) || (width < 5 || width > 20))
+		{
+			errorNumber = '8';
+			throw errorNumber;
+		}
+	}
+	else if (gameMode == '3')
+	{
+		if ((height < 8 || height > 20) || (width < 8 || width > 20))
+		{
+			errorNumber = '8';
+			throw errorNumber;
 		}
 	}
 }
@@ -89,7 +104,7 @@ void ErrorHandling::printMessage(char errorNumber)
 		break;
 	case '8':
 		cout << endl;
-		cout << "# Error: too many selected values." << endl;
+		cout << "# Error: values don't match game type." << endl;
 		break;
 	}// END switch
 }

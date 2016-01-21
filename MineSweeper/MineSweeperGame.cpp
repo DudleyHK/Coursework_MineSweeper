@@ -67,11 +67,10 @@ MineSweeper::~MineSweeper()
 }
 
 /**THIS IS NOT LONGER VALID AS HEIGHT AND WIDTH ARE STORED IN THE MSGAME CLASS**/
-void MineSweeper::getSize()
+void MineSweeper::getNumberOfMines()
 {
-	height = settings.getHeight();
-	width = settings.getWidth();
-	numberOfMines = settings.calcMines(gameMode);
+	int area = height * width;
+	numberOfMines = settings.getNumberOfMines(area, gameMode);
 }
 
 /*Pass Height, Width and Number of Mines to the Mine Grid and Visual Grid*/
@@ -95,6 +94,7 @@ void MineSweeper::createNewCoords()
 bool MineSweeper::mainMenu()
 {
 	bool isRepeat = false;
+	int userInput = 0;
 
 
 	// Display main Menu
@@ -104,6 +104,8 @@ bool MineSweeper::mainMenu()
 	isRepeat = true;
 	while (isRepeat)
 	{
+		cout << "Selection: ";
+
 		// Read user input
 		getline(cin, validateUserInput);
 
@@ -122,11 +124,13 @@ bool MineSweeper::mainMenu()
 				{
 					// SET default mode and values
 					gameMode = '0';
-					settings.setDefaultSize(5, 5);
+
+					height = settings.getDefaultHeight();	// Use DEFAULT height
+					width = settings.getDefaultWidth();		// Use DEFAULT width
+					
 				}
 
-				/*****THIS NEEDS TO BE CLEARED UP*****/
-				getSize();
+				getNumberOfMines();
 
 				
 				system("cls");				// Clear console
@@ -137,9 +141,9 @@ bool MineSweeper::mainMenu()
 				break;
 			case 2:
 				system("cls");				// Clear console
-				System::welcome();			// Print title
+				System::welcome();			// display title
 				gameMode = settingsMenu();	// Goto settingsMenu
-
+				System::mainMenuInterface();// Display mainmenu options 
 				break;
 			case 3:
 				continueGame = false;
@@ -178,6 +182,7 @@ char MineSweeper::settingsMenu()
 {
 	// declare variables
 	bool isRepeat = false;
+	int userInput = 0;
 
 	// display the menu
 	System::settingsInterface();
@@ -187,12 +192,13 @@ char MineSweeper::settingsMenu()
 	isRepeat = true;
 	while (isRepeat)
 	{
+		cout << "Selection: ";
+
 		// READ input
 		getline(cin, validateUserInput);
 
-
 		// return TRUE if input is valid
-		isValid = menuValidator();
+		isValid = menuValidator(userInput);
 
 		// If no error are detected
 		if (isValid == true)
@@ -244,11 +250,11 @@ char MineSweeper::settingsMenu()
 	}
 	else
 	{
-		settings.setDefaultSize(5, 5);	// Use DEFAULT size
+		height = settings.getDefaultHeight();	// Use DEFAULT height
+		width = settings.getDefaultWidth();		// Use DEFAULT width
 	}
 
-	/****CHECK GETSIZE FUNCTION HEIGH AND WIDTH STORED LOCALLY****/
-	getSize();
+	getNumberOfMines();
 
 
 	
@@ -362,29 +368,41 @@ void MineSweeper::inputGridSize()
 {
 	bool isRepeat = false;
 
-		cout << "Input size in format (height - width) For Example: 4 6 " << endl;
-		
-
-		cout << "----------------------------------------------" << endl;
-
+	cout << endl;
+	cout << "---------------------------------------" << endl;
+	cout << "Enter grid size" << endl;
 
 	isRepeat = true;
-
 	while (isRepeat)
 	{
-		/*****VALIDATE INPUT****/
+
+		cout << "Height: ";
+		cin >> height;
+
+		cout << "Width: ";
+		cin >> width;
+
 		try
 		{
-			ErrorHandling::validateHeightWidth(validateUserInput, gameMode);	// test the input
-			throw errorNumber;												// if error is found
+			ErrorHandling::validateHeightWidth(height, width, gameMode);
 
-			// IF it input is valid break out of loop
+			// if the input comes back valid
+			isValid = true;	
+		}
+		catch (char n)
+		{
+			// Print error message and SET isValid to falase;
+			ErrorHandling::printMessage(n);
+			isValid = false;
+			System::tryAgain();
+		}
+
+		// IF isValid is TRUE exit loop
+		if (isValid == true)
+		{
 			isRepeat = false;
 		}
-		catch (int n)	// catch error number
-		{
-			ErrorHandling::printMessage(n);
-		}
+
 	}// END while
 }
 
@@ -607,7 +625,7 @@ bool MineSweeper::continueOrQuit()
 
 
 /*This function only works when only ONE NUMERICAL output is needed.*/
-bool MineSweeper::menuValidator()
+bool MineSweeper::menuValidator(int userInput)
 {
 	try
 	{
@@ -623,6 +641,8 @@ bool MineSweeper::menuValidator()
 		ErrorHandling::printMessage(n);
 		isValid = false;
 	}
+
+	validateUserInput.clear();
 
 	return isValid;
 }

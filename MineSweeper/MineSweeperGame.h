@@ -34,7 +34,7 @@ public:
 	MineSweeper();
 	~MineSweeper();
 
-	void getSize();
+	void getNumberOfMines();
 	void passSize();
 	void createNewCoords();
 
@@ -53,14 +53,13 @@ public:
 	void changeIntToChar();
 	void findMinePositions();
 	bool continueOrQuit();
-	bool menuValidator();
+	bool menuValidator(int &userInput);		//THIS VALUE NEEDS TO GET CHNAGED 
 	
 private:
 
 	/*SIZE AND COORDINATE INFORMATION*/
 	int height, width, numberOfMines;
 	int inputCoordC, inputCoordR;
-	int userInput;
 
 	/*INPUT VALIDATION*/
 	string validateUserInput;

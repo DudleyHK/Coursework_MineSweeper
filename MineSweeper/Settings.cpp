@@ -14,8 +14,8 @@ using namespace std;
 Settings::Settings()
 {
 	// Default Settings
-	height = 5;
-	width = 5;
+	defaultHeight = 5;
+	defaultWidth = 5;
 	numberOfMines = 5;
 }
 
@@ -23,12 +23,15 @@ Settings::~Settings()
 {
 }
 
-/*Although the size is set to default on start up. If the user wishes
-to use the default grid size again this function will set it up for them*/
-void Settings::setDefaultSize(int h, int w)
+/*Functions managing the default settings*/
+int Settings::getDefaultHeight()
 {
-	height = h;
-	width = w;
+	return defaultHeight;
+}
+
+int Settings::getDefaultWidth()
+{
+	return defaultWidth;
 }
 
 void Settings::setDefaultMines(int m)
@@ -36,24 +39,10 @@ void Settings::setDefaultMines(int m)
 	numberOfMines = m;
 }
 
-
-int Settings::getHeight()
-{
-	return height;
-}
-
-int Settings::getWidth()
-{
-	return width;
-}
-
 /************************Functionality*****************************/
 
-int Settings::calcMines(char gameMode)
+int Settings::getNumberOfMines(int area, char gameMode)
 {
-	int area = 0;
-
-	area = height*width;
 
 	switch (gameMode)
 	{
