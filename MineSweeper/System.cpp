@@ -84,4 +84,17 @@ void System::settingsInterface()
 	cout << "1. Easy" << endl;
 	cout << "2. Medium" << endl;
 	cout << "3. Hard" << endl;
+	cout << "Selection: ";
+}
+
+
+void System::mainMenuInterface()
+{
+	cout << "MAIN MENU" << endl;
+	cout << "----------" << endl << endl;
+
+	cout << "1. Play Game" << endl;
+	cout << "2. Settings" << endl;
+	cout << "3. Exit" << endl;
+	cout << "Selection: ";
 }
