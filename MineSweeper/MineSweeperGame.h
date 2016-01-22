@@ -41,7 +41,7 @@ public:
 	/****************************PreGame*******************************/
 
 	bool mainMenu();
-	char settingsMenu();
+	int settingsMenu();
 	bool loadGame();		
 
 	/*************************Functionality****************************/
@@ -53,7 +53,7 @@ public:
 	void changeIntToChar();
 	void findMinePositions();
 	bool continueOrQuit();
-	bool menuValidator(int &userInput);		//THIS VALUE NEEDS TO GET CHNAGED 
+	bool menuValidator();
 	
 private:
 
@@ -62,12 +62,13 @@ private:
 	int inputCoordC, inputCoordR;
 
 	/*INPUT VALIDATION*/
-	string validateUserInput;
-	char errorNumber;
+	char *validateUserInput;
+	int errorNumber;
+	int convertedValue;
 	bool isValid;
 
 	/*MODE AND CONTINUE OPTION*/
-	char gameMode;
+	int gameMode;
 	bool continueGame;
 
 	/*FLAG INFORMATION*/

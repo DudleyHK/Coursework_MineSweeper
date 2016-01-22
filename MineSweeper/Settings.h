@@ -16,7 +16,7 @@ public:
 	int getDefaultWidth();
 	void setDefaultMines(int m);
 
-	int getNumberOfMines(int area, char gameMode);
+	int getNumberOfMines(int area, int gameMode);
 
 private:
 	// default setup

@@ -19,30 +19,30 @@ check the whole input for invalid characters. The function will return an
 error number*/
 void ErrorHandling::validateHeightWidth(int height, int width, char gameMode)
 {
-	char errorNumber = '0';
+	int errorNumber = 0;
 
 	// depending on the game mode 
-	if (gameMode == '1')
+	if (gameMode == 1)
 	{
 		if ((height < 3 || height > 20) || (width < 3 || width > 20))
 		{
-			errorNumber = '8';
+			errorNumber = 8;
 			throw errorNumber;
 		}
 	}
-	else if (gameMode == '2')
+	else if (gameMode == 2)
 	{
 		if ((height < 5 || height > 20) || (width < 5 || width > 20))
 		{
-			errorNumber = '8';
+			errorNumber = 8;
 			throw errorNumber;
 		}
 	}
-	else if (gameMode == '3')
+	else if (gameMode == 3)
 	{
 		if ((height < 8 || height > 20) || (width < 8 || width > 20))
 		{
-			errorNumber = '8';
+			errorNumber = 8;
 			throw errorNumber;
 		}
 	}
@@ -51,16 +51,16 @@ void ErrorHandling::validateHeightWidth(int height, int width, char gameMode)
 /*This function checks if the user has entered a valid input at any menu stage.
 It checks for one numerical input from the user and will throw an error if anything
 else is detected bar blank spaces. */
-void ErrorHandling::validateMenuSelection(string &input)
+void ErrorHandling::validateMenuSelection(char *input)
 {
-	char errorNumber = '0';
+	int errorNumber = 0;
 	int numberCounter = 0;
 
 	// Check each element in string
-	for (short i = 0; i < input.length(); i++)
+	for (int i = 0; i < strlen(input); i++)
 	{
 		// IF element is NOT a digit.
-		if (!isdigit(input.at(i)))
+		if (!isdigit(input[i]))
 		{
 			// IF element is a BLANK SPACE
 			if (input[i] == ' ')
@@ -71,7 +71,7 @@ void ErrorHandling::validateMenuSelection(string &input)
 			else
 			{
 				// ERROR
-				errorNumber = '9';
+				errorNumber = 9;
 				throw errorNumber;
 			}
 		}
@@ -86,7 +86,7 @@ void ErrorHandling::validateMenuSelection(string &input)
 		if (numberCounter > 1)
 		{
 			// ERROR
-			errorNumber = '9';
+			errorNumber = 9;
 			throw errorNumber;
 		}
 	}

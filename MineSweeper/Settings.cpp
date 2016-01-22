@@ -41,23 +41,23 @@ void Settings::setDefaultMines(int m)
 
 /************************Functionality*****************************/
 
-int Settings::getNumberOfMines(int area, char gameMode)
+int Settings::getNumberOfMines(int area, int gameMode)
 {
 
 	switch (gameMode)
 	{
-	case '0':
+	case 0:
 		setDefaultMines(5);
 		break;
-	case '1':
+	case 1:
 		//easy 15%
 		numberOfMines = area * 0.15;
 		break;
-	case '2':
+	case 2:
 		// medium 25%
 		numberOfMines = area * 0.25;
 		break;
-	case '3':
+	case 3:
 		// hard 60%
 		numberOfMines = area * 0.4;
 		break;
