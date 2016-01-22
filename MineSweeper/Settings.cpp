@@ -34,11 +34,6 @@ int Settings::getDefaultWidth()
 	return defaultWidth;
 }
 
-void Settings::setDefaultMines(int m)
-{
-	numberOfMines = m;
-}
-
 /************************Functionality*****************************/
 
 int Settings::getNumberOfMines(int area, int gameMode)
@@ -47,7 +42,7 @@ int Settings::getNumberOfMines(int area, int gameMode)
 	switch (gameMode)
 	{
 	case 0:
-		setDefaultMines(5);
+		numberOfMines = 5;
 		break;
 	case 1:
 		//easy 15%

@@ -53,7 +53,6 @@ public:
 	void changeIntToChar();
 	void findMinePositions();
 	bool continueOrQuit();
-	bool menuValidator();
 	
 private:
 
@@ -62,9 +61,7 @@ private:
 	int inputCoordC, inputCoordR;
 
 	/*INPUT VALIDATION*/
-	char *validateUserInput;
 	int errorNumber;
-	int convertedValue;
 	bool isValid;
 
 	/*MODE AND CONTINUE OPTION*/

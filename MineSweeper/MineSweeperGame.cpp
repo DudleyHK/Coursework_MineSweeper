@@ -61,8 +61,6 @@ MineSweeper::MineSweeper()
 	gameMode = -1;
 	continueGame = true;
 
-	validateUserInput = NULL;
-
 }
 
 MineSweeper::~MineSweeper()
@@ -96,7 +94,7 @@ void MineSweeper::createNewCoords()
 bool MineSweeper::mainMenu()
 {
 	bool isRepeat = false;
-
+	int userInput = 0;
 
 	// Display main Menu
 	System::mainMenuInterface();
@@ -105,21 +103,14 @@ bool MineSweeper::mainMenu()
 	isRepeat = true;
 	while (isRepeat)
 	{
-		int menuValue = 0;
 
 		cout << "Selection: ";
 
 		// Read user input
-		cin.getline(validateUserInput, strlen(validateUserInput));
+		cin >> userInput;
 
-		// return TRUE if input is valid
-		isValid = menuValidator();
-
-		// IF input is correct
-		if (isValid == true)
-		{
 			// RUN statement
-			switch (convertedValue)
+		switch (userInput)
 			{
 			case 1:
 				// IF difficultly mode has NOT been selected
@@ -159,17 +150,13 @@ bool MineSweeper::mainMenu()
 			default:
 				// final check incase user has entered one invalid number
 				cout << endl;
-				cout << "Menu value " << menuValue << " does not exist" << endl;
+				cout << "Menu value " << userInput << " does not exist" << endl;
 				System::tryAgain();	
 
 				break;
 
 			} // END userInput switch
-		}
-		else
-		{
-			System::tryAgain();
-		}
+		
 
 
 		// IF variable is false
@@ -188,6 +175,7 @@ int MineSweeper::settingsMenu()
 {
 	// declare variables
 	bool isRepeat = false;
+	int userInput = 0;
 
 	// display the menu
 	System::settingsInterface();
@@ -197,21 +185,14 @@ int MineSweeper::settingsMenu()
 	isRepeat = true;
 	while (isRepeat)
 	{
-		int settingsValue = 0;
-
 		cout << "Selection: ";
 
 		// READ input
-		cin.getline(validateUserInput, strlen(validateUserInput));
+		cin >> userInput;
 
-		// return TRUE if input is valid
-		isValid = menuValidator();
 
-		// If no error are detected
-		if (isValid == true)
-		{
 			// RUN statement
-			switch (convertedValue)
+		switch (userInput)
 			{
 			case 0:
 				gameMode = 0;
@@ -237,16 +218,11 @@ int MineSweeper::settingsMenu()
 			default: 
 				// final check incase user has entered invalid numerical value
 				cout << endl;
-				cout << "Menu value " << settingsValue << " does not exist" << endl;
+				cout << "Menu value " << userInput << " does not exist" << endl;
 				System::tryAgain();
 				break;
 
 			}// END switch
-		}
-		else
-		{
-			System::tryAgain();
-		}
 	}// END menu loop
 
 
@@ -306,11 +282,24 @@ bool MineSweeper::playGame()
 	int valInput = 1;
 	
 
-	cout << "There are " << numberOfMines << " mines hidden. Enjoy :) :)" << endl;
-	cout << "-----------------------------------------" << endl;
+	// print option display
+	System::instructions();
+	cout << endl;
+
+
+	if (numberOfMines == 1)
+	{
+		cout << numberOfMines << " mine is hidden." << endl;
+	}
+	else
+	{
+		cout << numberOfMines << " mines are hidden." << endl;
+	}
+
+	cout << endl << endl;
+
 
 	inGame = true;
-
 	while (inGame)
 	{
 		visualGrid.displayGrid();
@@ -420,11 +409,15 @@ int MineSweeper::guessPosition()
 	char charInput = '*';
 	bool inputValid = false;
 
-	cout << "Please enter coordintes and option:" << endl;
-	cin >> validateUserInput;
+	// Prompt user for input
+	cout << endl << endl;
+	cout << "Selection: ";
+
+	cin >> coordinates.r;
+	cin >> coordinates.c;
+	cin >> charInput;
 
 	/*****VALIDATE USER INPUT*****/
-
 
 
 	// create coords to be used by the program.
@@ -628,30 +621,4 @@ bool MineSweeper::continueOrQuit()
 		}
 	}
 	return continueGame;
-}
-
-
-/*This function only works when only ONE NUMERICAL output is needed.*/
-bool MineSweeper::menuValidator()
-{
-	convertedValue = 0;
-
-	try
-	{
-		ErrorHandling::validateMenuSelection(validateUserInput);
-
-		// if the input comes back valid
-		convertedValue = stoi(validateUserInput);			// convert string to int					
-		isValid = true;										// SET isValid to TRUE
-	}
-	catch (char n)
-	{
-		// Print error message and SET isValid to falase;
-		ErrorHandling::printMessage(n);
-		isValid = false;
-	}
-
-	cin.clear();
-
-	return isValid;
 }

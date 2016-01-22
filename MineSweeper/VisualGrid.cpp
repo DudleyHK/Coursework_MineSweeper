@@ -36,9 +36,9 @@ char VGrid::getPos(int colCoord, int rowCoord)
 	char vPos = '*';
 
 	// FOR every position in array
-	for (int row = 0; row < height; row++)
+	for (int row = height; row < 0; row--)
 	{
-		for (int col = 0; col < width; col++)
+		for (int col = width; col < 0; col--)
 		{
 			// IF array position is equal to coordinates position
 			if ((width*row) + col == (width * rowCoord) + colCoord)
@@ -55,9 +55,9 @@ char VGrid::getPos(int colCoord, int rowCoord)
 void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 {
 	// FOR each position in array
-	for (int row = 0; row < height; row++)
+	for (int row = height; row > 0; row--)
 	{
-		for (int col = 0; col < width; col++)
+		for (int col = width; col > 0; col--)
 		{
 			// IF array position is equal to coordinates position
 			if ((width * row) + col == (width*rowCoord) + colCoord)
@@ -87,15 +87,19 @@ void VGrid::initialiseArray()
 	}
 }
 
+/**DISPLAY THIS GRID FROM HEIGHT DOWN TO 0 TO FLIP THE GRID. ALSO DISPLAY NUMBERS NEXT TO THE GRID AND 
+numbers AT THE BOTTOM. **/
 void VGrid::displayGrid()
 {
 	// for each position
+	// run through and fill array
 	for (int r = 0; r < height; r++)
 	{
 		for (int c = 0; c < width; c++)
 		{
-			cout << vArray[(width*r) + c] << ' ';
+			cout << vArray[(0 * height) + c] << ' ';
 		}
+
 		cout << endl;
 	}
 }
