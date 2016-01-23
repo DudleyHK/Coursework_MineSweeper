@@ -126,18 +126,16 @@ void MGrid::placeMines()
 	}
 }
 
-int MGrid::dig(int colCoord, int rowCoord)
+bool MGrid::dig(int colCoord, int rowCoord)
 {
-	int isSafe = 1;
-	int currVal = 0;
-	int counter = 0;
+	bool isSafe = true;
+	int currVal = 0, counter = 0;
 
 
-
-	// GET value at guess coordinates
+	// GET value at coordinates position
 	currVal = mArray[(width*rowCoord) + colCoord];
 
-
+	// IF value at position is NOT a MINE 
 	if (currVal != -1)
 	{
 		// FOR 8 adjenscent positions
@@ -150,24 +148,24 @@ int MGrid::dig(int colCoord, int rowCoord)
 				{
 					if (col >= 0 && col < width)
 					{
-						// IF position is da bomb 
+						// IF position is a mine
 						if (mArray[(width*row) + col] == -1)
 						{
-							// counter++
+							// increment counter by one
 							counter++;
 						}
 					}
 				}
 			}
-		}
+		} // END for loop
 
 		// SET value at position to value of counter
 		mArray[(width*rowCoord) + colCoord] = counter;
 	}
 	else
 	{
-		// hit bomb
-		isSafe = -1;
+		// IF player has hit a bomb
+		isSafe = false;
 	}
 
 	return  isSafe; 

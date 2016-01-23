@@ -60,7 +60,6 @@ MineSweeper::MineSweeper()
 	// SET game mode variable as UNUSED
 	gameMode = -1;
 	continueGame = true;
-
 }
 
 MineSweeper::~MineSweeper()
@@ -70,6 +69,7 @@ MineSweeper::~MineSweeper()
 void MineSweeper::getNumberOfMines()
 {
 	int area = height * width;
+
 	numberOfMines = settings.getNumberOfMines(area, gameMode);
 }
 
@@ -96,73 +96,77 @@ bool MineSweeper::mainMenu()
 	bool isRepeat = false;
 	int userInput = 0;
 
-	// Display main Menu
+
+	// output main menu display
 	System::mainMenuInterface();
+
 
 	// RUN loop until input is valid
 	isRepeat = true;
 	while (isRepeat)
 	{
-
+		// Prompt for input
 		cout << "Selection: ";
 
-		// Read user input
+		// READ input
 		cin >> userInput;
 
-			// RUN statement
+
 		switch (userInput)
+		{
+		case 1:
+			// IF game mode has NOT been selected
+			if (gameMode == -1)
 			{
-			case 1:
-				// IF difficultly mode has NOT been selected
-				if (gameMode ==  -1)
-				{
-					// SET default mode and values
-					gameMode = 0;
+				// SET default mode
+				gameMode = 0;
 
-					height = settings.getDefaultHeight();	// Use DEFAULT height
-					width = settings.getDefaultWidth();		// Use DEFAULT width
-					
-				}
+				// return DEFAULT values from the settings object
+				height = settings.getDefaultHeight();
+				width = settings.getDefaultWidth();
+			}
 
-				getNumberOfMines();
-				
-				system("cls");				// Clear console
-				System::welcome();			// Print title
-				continueGame = loadGame();	// Load game
+			getNumberOfMines();
 
-				break;
+			// clear console and output welcome display
+			system("cls");
+			System::welcome();
 
-			case 2:
-				system("cls");				// Clear console
-				System::welcome();			// Display title
-				gameMode = settingsMenu();	// Go to the settingsMenu
+			continueGame = loadGame();
+			break;
 
-				System::mainMenuInterface();// Display main menu options 
-				break;
+		case 2:
+			// clear console and output welcome display
+			system("cls");
+			System::welcome();
 
-				
-			case 3:
-				// IF players wishes to quit game
-				continueGame = false;
-				break;
+			settingsMenu();
 
+			// output main menu display
+			System::mainMenuInterface();
+			break;
 
-			default:
-				// final check incase user has entered one invalid number
-				cout << endl;
-				cout << "Menu value " << userInput << " does not exist" << endl;
-				System::tryAgain();	
+		case 3:
+			// break loop and quit program
+			isRepeat = false;
+			break;
 
-				break;
+		default:
+			// if the number entered is incorrect
+			cout << endl;
+			cout << "Menu value " << userInput << " does not exist" << endl;
 
-			} // END userInput switch
-		
+			// output try again display
+			System::tryAgain();
 
+			break;
 
-		// IF variable is false
+		} // END userInput switch
+
+		// IF player wishes to quit the game
 		if (continueGame == false)
 		{
-			// break loop to exit
+			// break loop
 			isRepeat = false;
 		}
 	} // END menu loop
@@ -171,81 +175,81 @@ bool MineSweeper::mainMenu()
 	return continueGame;
 }
 
-int MineSweeper::settingsMenu()
+void MineSweeper::settingsMenu()
 {
-	// declare variables
 	bool isRepeat = false;
 	int userInput = 0;
 
-	// display the menu
+	// output the settings menu display
 	System::settingsInterface();
 
-
-	// Run loop until user input is valid
+	
 	isRepeat = true;
 	while (isRepeat)
 	{
+		// Prompt for input
 		cout << "Selection: ";
 
 		// READ input
 		cin >> userInput;
 
 
-			// RUN statement
+		// SET game mode related to the players choice.
 		switch (userInput)
-			{
-			case 0:
-				gameMode = 0;
-				isRepeat = false;
+		{
+		case 0:
+			gameMode = 0;
+			isRepeat = false;
 
-				break;
+			break;
 
-			case 1:
-				gameMode = 1;
-				isRepeat = false;
-				break;
+		case 1:
+			gameMode = 1;
+			isRepeat = false;
+			break;
 
-			case 2:
-				gameMode = 2;
-				isRepeat = false;
-				break;
+		case 2:
+			gameMode = 2;
+			isRepeat = false;
+			break;
 
-			case 3:
-				gameMode = 3;
-				isRepeat = false;
-				break;
+		case 3:
+			gameMode = 3;
+			isRepeat = false;
+			break;
 
-			default: 
-				// final check incase user has entered invalid numerical value
-				cout << endl;
-				cout << "Menu value " << userInput << " does not exist" << endl;
-				System::tryAgain();
-				break;
+		default:
+			// if the number entered is incorrect
+			cout << endl;
+			cout << "Menu value " << userInput << " does not exist" << endl;
+			
+			// output try again display
+			System::tryAgain();
+			break;
 
-			}// END switch
+		}// END switch
 	}// END menu loop
 
 
-	// IF default has NOT been selected
+	// IF game mode is NOT default
 	if (gameMode != 0)
 	{
-		inputGridSize();				// USER INPUT size
+		inputGridSize();
 	}
 	else
 	{
-		height = settings.getDefaultHeight();	// Use DEFAULT height
-		width = settings.getDefaultWidth();		// Use DEFAULT width
+		height = settings.getDefaultHeight();
+		width = settings.getDefaultWidth();		
 	}
 
+
 	getNumberOfMines();
-
-
 	
-	system("cls");			// Clear console
-	System::welcome();		// Reprint Welcome message
+	// clear the console
+	system("cls");
 
-
-	return gameMode;
+	// output the welcome display
+	System::welcome();
 }
 
 
@@ -254,10 +258,16 @@ Including passing variable to the visual and mine objects. Initialsing both obje
 arrays, assigning mines random positions and finally runnning the game.*/
 bool MineSweeper::loadGame()
 {
+	// pass variables to the mine and visual object
 	passSize();
+	
+	// initialise mine and visual array
 	mineGrid.initialiseArray();
-	mineGrid.placeMines();
 	visualGrid.initialiseArray();
+
+	// randomly place mines
+	mineGrid.placeMines();
+
 
 	continueGame = playGame();
 
@@ -268,7 +278,7 @@ bool MineSweeper::loadGame()
 
 
 /*
-Return Key (This relates to playGame() and find()) :
+Return code (This relates to playGame() and find()) :
 0 = Hit Bomb
 1 = Valid
 2 = Could not be Flagged
@@ -279,90 +289,93 @@ Return Key (This relates to playGame() and find()) :
 bool MineSweeper::playGame()
 {
 	bool inGame = false;
-	int valInput = 1;
-	
+	int returnCode = 0;
 
-	// print option display
+	// output instructions display
 	System::instructions();
-	cout << endl;
 
 
-	if (numberOfMines == 1)
-	{
-		cout << numberOfMines << " mine is hidden." << endl;
-	}
-	else
+	// Output dependent on number of mines hidden
+	if (numberOfMines < 1)
 	{
 		cout << numberOfMines << " mines are hidden." << endl;
 	}
+	else
+	{
+		cout << numberOfMines << " mine is hidden." << endl;
+	}
 
+	// Print blank lines
 	cout << endl << endl;
 
 
 	inGame = true;
 	while (inGame)
 	{
+		// output the visual grid.
 		visualGrid.displayGrid();
-		valInput = guessPosition();
 
+		// guess coordinates
+		inputCoordinates();
 
-		// check validation options
-		if (valInput != 1)
+		// act upon user input
+		returnCode = actOnCoordInput();
+
+		switch (returnCode)
 		{
-			switch (valInput)
-			{
+		case 0:
+			// output looser display
+			System::looser();
 
-			case 0: 
-				cout << "BOOOOOOOOM.. OOps. YOU LOOSE.." << endl;
-				findMinePositions();
-				visualGrid.displayGrid();
+			// change characters in the visual array at position with mines.
+			findMinePositions();
 
-				continueGame = continueOrQuit();
-				inGame = false;
+			// display the grid
+			visualGrid.displayGrid();
 
+			continueGame = continueOrQuit();
 
-				break;
+			// break out of loop
+			inGame = false;
+			break;
 
-				/*1 = VALID INPUT. UNUSED FOR ERROR CHECKING*/
+			/*1 = VALID INPUT. UNUSED FOR ERROR CHECKING*/
 
-			case 2:
-				cout << "Position could not be Flagged. Please check and try again." << endl;
-				break;
-			case 3:
-				cout << "Position could not be Dug. Please check and try again." << endl;
-				break;
-			case 4:
-				cout << "Please select 'F' to Flag/ 'D' to Dig a position" << endl;
-				break;
+		case 2:
+			cout << "Position could not be Flagged. Please check and try again." << endl;
+			break;
+		case 3:
+			cout << "Position could not be Dug. Please check and try again." << endl;
+			break;
+		case 4:
+			cout << "Please select 'F' to Flag/ 'D' to Dig a position" << endl;
+			break;
 
-			case 5:
-				cout << "Invalid coordinates. Please check and try again." << endl;
-				break;
-			}
+		case 5:
+			cout << "Invalid coordinates. Please check and try again." << endl;
+			break;
+
 		}
-		else
+		// update number of correctly flagged mines
+		updateCounter();
+
+
+		// Check if game is won
+		if (correctFlags == numberOfMines && totalFlags == numberOfMines)
 		{
-			// update number of correctly flagged mines
-			updateCounter();
-
-
-			// Check if game is won
-			if (correctFlags == numberOfMines && totalFlags == numberOfMines)
-			{
-				System::winner();
-				continueGame = continueOrQuit();
-				continueGame = false;
-			}
+			System::winner();
+			continueGame = continueOrQuit();
+			continueGame = false;
 		}
 	}
-	
+
 	return continueGame;
 }
 
 
 void MineSweeper::inputGridSize()
 {
-	bool isRepeat = false;
+	bool isRepeat = false, isValid = false;
 
 	cout << endl;
 	cout << "---------------------------------------" << endl;
@@ -387,9 +400,12 @@ void MineSweeper::inputGridSize()
 		}
 		catch (char n)
 		{
-			// Print error message and SET isValid to falase;
+			// Print error message
 			ErrorHandling::printMessage(n);
+
 			isValid = false;
+
+			// output try agian display
 			System::tryAgain();
 		}
 
@@ -403,71 +419,112 @@ void MineSweeper::inputGridSize()
 }
 
 
-int MineSweeper::guessPosition()
+void MineSweeper::inputCoordinates()
 {
-	int fVal = 1, isSafe = 1, v = 1;
-	char charInput = '*';
-	bool inputValid = false;
+	bool isValid = false;
 
-	// Prompt user for input
+	// print blank lines
 	cout << endl << endl;
-	cout << "Selection: ";
 
-	cin >> coordinates.r;
-	cin >> coordinates.c;
-	cin >> charInput;
-
-	/*****VALIDATE USER INPUT*****/
-
-
-	// create coords to be used by the program.
-	createNewCoords();
-
-	// make upper case
-	if (islower(charInput))
+	// while the input isnt valid
+	while (!isValid)
 	{
-		charInput = toupper(charInput);
-	}
+		// Prompt for coordinates
+		cout << "Coordinates: ";
 
-	switch (charInput)
-	{
-	case 'F':
-		fVal = visualGrid.flag(coordinates.c, coordinates.r);
+		// READ input
+		cin >> inputCoordR;
+		cin >> inputCoordC;
 
-		// position not flagged.
-		if (fVal == 0)
+
+		// Call function to minus one from each coordinte input
+		createNewCoords();
+
+
+		// prompt for action
+		cout << endl;
+		cout << "Action: ";
+
+		// READ input
+		cin >> actionLetter;
+
+
+		// IF the user input is lower case
+		if (islower(actionLetter))
 		{
-			v = 2;
+			// Make uppercase
+			actionLetter = toupper(actionLetter);
 		}
 
+
+		// Check inputs for errors
+		try
+		{
+			ErrorHandling::validateCoordinates(coordinates.c, coordinates.r,
+				actionLetter, height, width);
+
+			// if inputs are valid
+			isValid = true;
+		}
+		catch (int n)
+		{
+			// if exception is thrown
+			isValid = false;
+
+			// Print error message
+			ErrorHandling::printMessage(n);
+
+			System::tryAgain();
+		}
+	} // END while
+}
+
+
+
+int MineSweeper::actOnCoordInput()
+{
+	bool isFlagged = false, isSafe = false;
+	int returnCode = 0;
+
+	switch (actionLetter)
+	{
+	case 'F':
+		isFlagged = visualGrid.flag(coordinates.c, coordinates.r);
+
+		// position not flagged.
+		if (isFlagged == false)
+		{
+			returnCode = 2;
+		}
 		break;
 	case 'D':
 		isSafe = mineGrid.dig(coordinates.c, coordinates.r);
 
-
-		if (isSafe == -1)
+		// Depending on the output of the dig function
+		if (isSafe == false)
 		{
-			// hit Bomb :S oops
-			v = 0;
+			// Mine HIT
+			returnCode = 0;
 		}
-		else if (isSafe == 0)
+		else if (isSafe == true)
 		{
-			v = 3;
+			// Position can not be dug
+			returnCode = 3;
 		}
 		else
 		{
-			// select char to display
+			// matching variable type.
 			changeIntToChar();
-
-			break;
-	default:
-		// char is invalid.
-		v = 4;
-		break;
 		}
+		break;
+
+	default:
+		// invalid letter
+		returnCode = 4;
+		break;
 	}
 
-	return v;
+	return returnCode;
 }
 
 /*Check each element of the grids to check the number of total flags on the map, 
@@ -475,11 +532,8 @@ and the number of flags correctly positioned on the map. This will avoid players
 being able to cheat by randomly placing 10 flags in the grid*/
 void MineSweeper::updateCounter()
 {
-	//char vPos = '*';
-	//int mPos = 0;
 	int totalFlagsCounter = 0, correctFlagsCounter = 0;
 
-	// 
 	for (int row = 0; row < height; row++)
 	{
 		for (int col = 0; col < width; col++)

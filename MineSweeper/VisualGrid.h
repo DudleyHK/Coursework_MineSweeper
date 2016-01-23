@@ -17,7 +17,7 @@ public:
 
 	void initialiseArray();	
 	void displayGrid();
-	int flag(int colCoord, int rowCoord);
+	bool flag(int colCoord, int rowCoord);
 
 
 private:

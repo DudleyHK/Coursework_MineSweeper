@@ -35,7 +35,7 @@ void System::instructions()
 	cout << "\t: To go back to the Main Menu press 'Q' :" << endl;
 	cout << "\t........................................." << endl;
 	cout << "__________________________________________________________" << endl;
-	cout << endl;
+	cout << endl << endl;
 }
 
 
@@ -91,7 +91,7 @@ void System::mainMenuInterface()
 	cout << "MAIN MENU" << endl;
 	cout << "----------" << endl << endl;
 
-	cout << "1. Play Game" << endl;
+	cout << "1. Play" << endl;
 	cout << "2. Settings" << endl;
 	cout << "3. Exit" << endl;
 }

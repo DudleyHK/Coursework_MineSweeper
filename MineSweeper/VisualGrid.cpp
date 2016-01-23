@@ -95,6 +95,8 @@ void VGrid::displayGrid()
 	// run through and fill array
 	for (int r = 0; r < height; r++)
 	{
+		cout << " ";
+
 		for (int c = 0; c < width; c++)
 		{
 			cout << vArray[(0 * height) + c] << ' ';
@@ -104,10 +106,10 @@ void VGrid::displayGrid()
 	}
 }
 
-int VGrid::flag(int colCoord, int rowCoord)
+bool VGrid::flag(int colCoord, int rowCoord)
 {
 	char currentChar;
-	int  isFlagged = 1; // assume position can be flagged 
+	bool  isFlagged = true; // assume position can be flagged 
 
 	// find char at position
 	currentChar = vArray[(width * rowCoord) + rowCoord];
@@ -120,7 +122,7 @@ int VGrid::flag(int colCoord, int rowCoord)
 	// if anything is in position. Hopfully will notice if number are in position.
 	else
 	{
-		isFlagged = 0;
+		isFlagged = false;
 	}
 	
 	return isFlagged;

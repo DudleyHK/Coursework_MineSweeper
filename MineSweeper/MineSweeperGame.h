@@ -41,14 +41,15 @@ public:
 	/****************************PreGame*******************************/
 
 	bool mainMenu();
-	int settingsMenu();
+	void settingsMenu();
 	bool loadGame();		
 
 	/*************************Functionality****************************/
 
 	bool playGame();
 	void inputGridSize();
-	int guessPosition();
+	void inputCoordinates();
+	int actOnCoordInput();
 	void updateCounter();
 	void changeIntToChar();
 	void findMinePositions();
@@ -59,10 +60,10 @@ private:
 	/*SIZE AND COORDINATE INFORMATION*/
 	int height, width, numberOfMines;
 	int inputCoordC, inputCoordR;
+	char actionLetter;
 
 	/*INPUT VALIDATION*/
 	int errorNumber;
-	bool isValid;
 
 	/*MODE AND CONTINUE OPTION*/
 	int gameMode;
