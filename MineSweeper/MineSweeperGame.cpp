@@ -141,6 +141,7 @@ bool MineSweeper::mainMenu()
 		case 3:
 			// break loop and quit program
 			isRepeat = false;
+			continueGame = false;
 			break;
 
 		default:
