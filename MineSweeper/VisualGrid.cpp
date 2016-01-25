@@ -1,10 +1,10 @@
 /*
-	Details: Visual Grid Functionality
-
-
+	Solution: Visual Grid
+	Author: Dudley Dawes
+	Summary: Class Functions
 */
-#include "VisualGrid.h"
 
+#include "VisualGrid.h"
 
 #include <iostream>
 using namespace std;
@@ -70,7 +70,7 @@ void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 }
 
 
-/************************Functionality*****************************/
+/***************************Run Time*******************************/
 
 
 void VGrid::initialiseArray()
@@ -109,23 +109,70 @@ void VGrid::displayGrid()
 bool VGrid::flag(int colCoord, int rowCoord)
 {
 	char currentChar;
-	bool  isFlagged = true; // assume position can be flagged 
+	bool  isFlagged = true;
 
-	// find char at position
+	// return character at position in the array
 	currentChar = vArray[(width * rowCoord) + rowCoord];
 
-	// if position can be flagged.
+	// IF position has NOT been flagged 
 	if (currentChar != 'F')
 	{
+		// SET position in array to 'F'
 		vArray[(width * rowCoord) + colCoord] = 'F';
 	}
-	// if anything is in position. Hopfully will notice if number are in position.
 	else
 	{
 		isFlagged = false;
 	}
 	
 	return isFlagged;
+}
+
+
+void VGrid::changeIntToChar(int colCoord, int rowCoord, int number)
+{
+	char setChar = '*';
+
+	switch (number)
+	{
+	case -1:
+		setChar = '!';
+		break;
+	case 0:
+		setChar = '0';
+		break;
+	case 1:
+		setChar = '1';
+		break;
+	case 2:
+		setChar = '2';
+		break;
+	case 3:
+		setChar = '3';
+		break;
+	case 4:
+		setChar = '4';
+		break;
+	case 5:
+		setChar = '5';
+		break;
+	case 6:
+		setChar = '6';
+		break;
+	case 7:
+		setChar = '7';
+		break;
+	case 8:
+		setChar = '8';
+		break;
+	}
+
+	// set position of vArray = to char
+	setPos(colCoord, rowCoord, setChar);
+
+
+
+
 }
 
 

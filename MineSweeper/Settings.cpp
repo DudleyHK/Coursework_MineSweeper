@@ -1,8 +1,9 @@
 /*
-		details: Settings functions
-
-
+	Solution: Settings
+	Author: Dudley Dawes
+	Summary: Class Functions
 */
+
 #include "Settings.h"
 
 #include <iostream>
@@ -34,11 +35,10 @@ int Settings::getDefaultWidth()
 	return defaultWidth;
 }
 
-/************************Functionality*****************************/
+/***************************Run Time*******************************/
 
 int Settings::getNumberOfMines(int area, int gameMode)
 {
-
 	switch (gameMode)
 	{
 	case 0:

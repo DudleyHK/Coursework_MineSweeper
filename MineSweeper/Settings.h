@@ -1,25 +1,27 @@
 /*
-	Details: Settings
-
+	Solution: Settings
+	Author: Dudley Dawes
+	Summary: Settings is only accessed when players wish to change the difficulty
+				mode. It is also accessed at the beginning of the game if a mode 
+				has not be selected. The functions in places will automatically 
+				assign the numberOfMines whether its for a default or standard game.
 */
-#include <iostream>
-using namespace std;
-
 
 class Settings
 {
 public:
+
+	/*************************Data Access******************************/
+
 	Settings();
 	~Settings();
-
 	int getDefaultHeight();
 	int getDefaultWidth();
 	void setDefaultMines(int m);
-
-	int getNumberOfMines(int area, int gameMode);
+	int getNumberOfMines(int areaPtr, int gameMode);
 
 private:
-	// default setup
+	/* DEFAULT VARIABLES*/
 	int defaultHeight, defaultWidth, numberOfMines;
 };
 

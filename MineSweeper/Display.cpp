@@ -1,15 +1,16 @@
 /*
-	Details: User interface functions
-
+	Solution: Display
+	Author: Dudley Dawes
+	Summary: Display Functions
 */
 
-#include "System.h"
+#include "Display.h"
 
 #include <iostream>
 using namespace std;
 
 
-void System::welcome()
+void Display::welcome()
 {
 	cout << "\t\t :::::::::::::::::::::::" << endl;
 	cout << "\t\t :: Mine Sweeper Game ::" << endl;
@@ -26,7 +27,7 @@ void System::welcome()
 
 
 
-void System::instructions()
+void Display::instructions()
 {
 	cout << "Select a coordinates (x, y) followed by one of the options below" << endl;
 	cout << "\t........................................." << endl;
@@ -39,7 +40,7 @@ void System::instructions()
 }
 
 
-void System::winner()
+void Display::winner()
 {
 	cout << endl;
 	cout << "/t:::::::::::::::" << endl;
@@ -50,7 +51,7 @@ void System::winner()
 }
 
 
-void System::looser()
+void Display::looser()
 {
 	cout << endl;
 	cout << "/t:::::::::::::::" << endl;
@@ -62,7 +63,7 @@ void System::looser()
 
 
 
-void System::settingsInterface()
+void Display::settingsInterface()
 {
 	cout << "SETTINGS MENU" << endl;
 	cout << "--------------" << endl << endl;
@@ -86,7 +87,7 @@ void System::settingsInterface()
 }
 
 
-void System::mainMenuInterface()
+void Display::mainMenuInterface()
 {
 	cout << "MAIN MENU" << endl;
 	cout << "----------" << endl << endl;
@@ -97,8 +98,9 @@ void System::mainMenuInterface()
 }
 
 
-void System::tryAgain()
+void Display::tryAgain()
 {
-	cout << "---------------------------------------" << endl;
+	cout << endl;
+	cout << "---------------------------------------" << endl; 
 	cout << "Try again..." << endl;
 }

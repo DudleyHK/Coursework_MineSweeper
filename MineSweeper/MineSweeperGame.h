@@ -1,23 +1,19 @@
 /*
-	Solution: Game Controller Class
+	Solution: Game Controller
 	Author: Dudley Dawes
 	Summary: Main Class - controlling information management and functionality. This
-				Class takes information from the user and passes it to the Mine Grid and 
-				Visual Grid. It uses functionality from the Error Handling Namesapce and 
-				stores user interface information in the System Namespace.
-	
-
+				Class takes information from the user and passes it to the Mine Grid 
+				and Visual Grid. It uses functionality from the Error Handling class 
+				and stores and prints user interface information from the System namespace.
 */
 
 #include "MineGrid.h"
 #include "VisualGrid.h"
 #include "Settings.h"
-#include "System.h"
+#include "Display.h"
 #include "ErrorHandling.h"
 
-using namespace System;
-using namespace ErrorHandling;
-
+using namespace Display;
 
 class MineSweeper
 {
@@ -26,8 +22,7 @@ public:
 	MGrid mineGrid;
 	VGrid visualGrid;
 	Settings settings;
-
-	Coordinates coordinates;
+	ErrorHandling errorHandling;
 
 	/*************************Data Access******************************/
 
@@ -44,31 +39,35 @@ public:
 	void settingsMenu();
 	bool loadGame();		
 
-	/*************************Functionality****************************/
+	/***************************Run Time*******************************/
 
 	bool playGame();
 	void inputGridSize();
 	void inputCoordinates();
-	int actOnCoordInput();
+	void actOnCoordInput();
 	void updateCounter();
-	void changeIntToChar();
-	void findMinePositions();
 	bool continueOrQuit();
-	
+
+
 private:
 
-	/*SIZE AND COORDINATE INFORMATION*/
+	/* SIZE AND COORDINATE INFORMATION */
 	int height, width, numberOfMines;
 	int inputCoordC, inputCoordR;
 	char actionLetter;
 
-	/*INPUT VALIDATION*/
-	int errorNumber;
+	/* COORDINATES USED BUT THE PROGRAM (USER INPUT - 1) */
+	int systemRowCoord;
+	int systemColCoord;
 
-	/*MODE AND CONTINUE OPTION*/
+	/* INPUT VALIDATION */
+	int errorNumber;
+	int returnCode;
+
+	/* MODE AND CONTINUE OPTION */
 	int gameMode;
 	bool continueGame;
 
-	/*FLAG INFORMATION*/
+	/* FLAG INFORMATION */
 	int correctFlags, totalFlags;
 };

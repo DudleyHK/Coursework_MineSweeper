@@ -1,9 +1,8 @@
 /*
-	Details: Amount of Mines in grid
-
-
+	Solution: Mine Grid
+	Author: Dudley Dawes
+	Summary: Class Functions
 */
-
 #include "MineGrid.h"
 
 
@@ -58,7 +57,7 @@ int MGrid::getPos(int colCoord, int rowCoord)
 
 
 
-/************************Functionality*****************************/
+/***************************Run Time*******************************/
 
 void MGrid::initialiseArray()
 {
