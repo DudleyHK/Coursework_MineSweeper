@@ -49,17 +49,13 @@ MineSweeper::MineSweeper()
 	continueGame = true;
 }
 
-MineSweeper::~MineSweeper()
-{
-}
-
-/* return default setting if game mode is 0. Else calculate number of mines 
+/* return default values if game mode is 0. Else calculate number of mines 
 based on the difficult mode.*/
 void MineSweeper::getNumberOfMines()
 {
 	int area = height * width;
 
-
+	// return value
 	numberOfMines = settings.getNumberOfMines(area, gameMode);
 }
 
@@ -118,11 +114,12 @@ bool MineSweeper::mainMenu()
 
 			getNumberOfMines();
 
-			// clear console and output welcome display
+			// clear console
 			system("cls");
+
+			// output welcome display
 			Display::welcome();
 
-			// go to:
 			continueGame = loadGame();
 			break;
 
@@ -131,7 +128,6 @@ bool MineSweeper::mainMenu()
 			system("cls");
 			Display::welcome();
 
-			// go to: 
 			settingsMenu();
 
 			// output main menu display
@@ -227,7 +223,6 @@ void MineSweeper::settingsMenu()
 	// IF game mode is NOT default
 	if (gameMode != 0)
 	{
-		// go to:
 		inputGridSize();
 	}
 	else
@@ -237,7 +232,6 @@ void MineSweeper::settingsMenu()
 		width = settings.getDefaultWidth();		
 	}
 
-	// go to:
 	getNumberOfMines();
 	
 	// clear the console
@@ -331,7 +325,6 @@ bool MineSweeper::playGame()
 			// output looser display
 			Display::looser();
 
-			// go to:
 			continueGame = continueOrQuit();
 
 			// break out of loop
@@ -368,8 +361,11 @@ bool MineSweeper::playGame()
 		// Check if game is won
 		if (correctFlags == numberOfMines && totalFlags == numberOfMines)
 		{
+			// output display
 			Display::winner();
+
 			continueGame = continueOrQuit();
+
 			continueGame = false;
 		}
 	}
@@ -404,7 +400,7 @@ void MineSweeper::actOnCoordInput()
 		// Check if position is a mine
 		valueAtPos = mineGrid.getPos(systemColCoord, systemRowCoord);
 
-		// if it is do:
+		// if position is a mine
 		if (valueAtPos == -1)
 		{
 			returnCode = -1;
@@ -440,20 +436,24 @@ void MineSweeper::inputGridSize()
 {
 	bool isRepeat = false, isValid = false;
 
+	// Prompt for input
 	cout << endl;
 	cout << "---------------------------------------" << endl;
 	cout << "Enter grid size" << endl;
 
+
 	isRepeat = true;
 	while (isRepeat)
 	{
-
+		// READ inputs
 		cout << "Height: ";
 		cin >> height;
 
 		cout << "Width: ";
 		cin >> width;
 
+
+		// Check for errors
 		try
 		{
 			errorNumber = errorHandling.validateHeightWidth(height, width, gameMode);
@@ -469,7 +469,6 @@ void MineSweeper::inputGridSize()
 		}
 		catch (int n)
 		{
-			// Print error message
 			errorHandling.printMessage(n);
 
 			isValid = false;
@@ -517,6 +516,7 @@ void MineSweeper::inputCoordinates()
 		// READ input
 		cin >> actionLetter;
 
+		// next line
 		cout << endl;
 
 		// IF the user input is lower case. Make uppercase
@@ -549,6 +549,7 @@ void MineSweeper::inputCoordinates()
 		}
 	} // END while
 
+	// go to:
 	actOnCoordInput();
 }
 
@@ -570,6 +571,7 @@ void MineSweeper::updateCounter()
 
 			if (vPos == 'F')
 			{
+				// increment total number of mines in grid by one
 				totalFlagsCounter++;
 
 				// IF flag is placed on a MINE
@@ -614,12 +616,13 @@ void MineSweeper::locateAllMines()
 bool MineSweeper::continueOrQuit()
 {
 	char userInput = 'Y';
-	bool loop = false;
+	bool isRepeat = false;
 
-	loop = true;
 
-	while (loop)
+	isRepeat = true;
+	while (isRepeat)
 	{
+		// prompt for input
 		cout << "Continue Y/N?" << endl;
 		cin >> userInput;
 
@@ -629,11 +632,13 @@ bool MineSweeper::continueOrQuit()
 			userInput = toupper(userInput);
 		}
 
+
 		switch (userInput)
 		{
 		case 'Y':
+			// go back to main menu
 			continueGame = true;
-			loop = false;
+			isRepeat = false;
 
 			// delete the memory 
 			mineGrid.~MGrid();
@@ -651,12 +656,18 @@ bool MineSweeper::continueOrQuit()
 			break;
 
 		case 'N':
+			// break loops and quit
 			continueGame = false;
-			loop = false;
+			isRepeat = false;
 			break;
 
 		default:
-			cout << "Invalid input. Please check and try again :)" << endl;
+			// if the number entered is incorrect
+			cout << endl;
+			cout << "Menu letter " << userInput << " does not exist" << endl;
+
+			// output try again display
+			Display::tryAgain();
 			break;
 		}
 	}

@@ -20,10 +20,6 @@ Settings::Settings()
 	numberOfMines = 5;
 }
 
-Settings::~Settings()
-{
-}
-
 /*Functions managing the default settings*/
 int Settings::getDefaultHeight()
 {

@@ -14,7 +14,7 @@ public:
 	/*************************Data Access******************************/
 
 	Settings();
-	~Settings();
+	
 	int getDefaultHeight();
 	int getDefaultWidth();
 	int getNumberOfMines(int area, int gameMode);

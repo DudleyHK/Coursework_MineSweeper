@@ -27,8 +27,7 @@ public:
 	/*************************Data Access******************************/
 
 	MineSweeper();
-	~MineSweeper();
-
+	
 	void getNumberOfMines();
 	void passSize();
 	void createNewCoords();

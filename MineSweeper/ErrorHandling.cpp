@@ -51,15 +51,15 @@ void ErrorHandling::validateCoordinates(int coordCol, int coordRow, char actionL
 	int height, int width)
 {
 	// Check coordinates 
-	if (coordCol < 0 || coordCol > width)
+	if (coordCol < 0 || coordCol > width - 1)
 	{
 		errorNumber = 7;
 		throw errorNumber;
 	}
 
-	if (coordRow < 0 || coordRow > height)
+	if (coordRow < 0 || coordRow > height - 1)
 	{
-		errorNumber = 6;
+		errorNumber = 7;
 		throw errorNumber;
 	}
 
@@ -70,7 +70,7 @@ void ErrorHandling::validateCoordinates(int coordCol, int coordRow, char actionL
 		{
 			if (actionLetter != 'Q')
 			{
-				errorNumber = 5;
+				errorNumber = 6;
 				throw errorNumber;
 			}
 		}
@@ -94,13 +94,9 @@ void ErrorHandling::printMessage(int n)
 		break;
 	case 7:
 		cout << endl;
-		cout << "# Error: first coordinate invalid." << endl;
+		cout << "# Error: coordinates invalid." << endl;
 		break;
 	case 6:
-		cout << endl;
-		cout << "# Error: second coordinate invalid." << endl;
-		break;
-	case 5:
 		cout << endl;
 		cout << "# Error: character invalid" << endl;
 		break;
