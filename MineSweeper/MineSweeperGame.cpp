@@ -379,8 +379,7 @@ bool MineSweeper::playGame()
 
 void MineSweeper::actOnCoordInput()
 {
-	bool isFlagged = false;
-	bool isSafe = false;
+	bool isFlagged = false, isSafe = false;
 	int valueAtPos = 0;
 	char characterAtPos = '*';
 
@@ -393,7 +392,7 @@ void MineSweeper::actOnCoordInput()
 		// if its possible flag the position
 		isFlagged = visualGrid.flag(systemColCoord, systemRowCoord);
 
-		if (isFlagged == 2)
+		if (isFlagged == false)
 		{
 			// option unavailable
 			returnCode = 0;

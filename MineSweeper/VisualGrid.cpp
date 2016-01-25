@@ -13,14 +13,17 @@ using namespace std;
 
 VGrid::VGrid()
 {
-	vArray = NULL;
+	// set array to point at nothing
+	vArray = nullptr;
 }
 
 VGrid::~VGrid()
 {
+	// delete off heap and point back to no memory
 	delete[] vArray;
-	vArray = NULL;
+	vArray = nullptr;
 
+	// reset main variables
 	height = 0;
 	width = 0;
 	numberOfMines = 0;
@@ -37,7 +40,7 @@ void VGrid::setSize(int h, int w, int m)
 /*Return value of the coordinates position*/
 char VGrid::getPos(int colCoord, int rowCoord)
 {
-	char vPos = '*';
+	char characterAtPos = '*';
 
 	// FOR every position in array
 	for (int r = 0; r < height; r++)
@@ -48,11 +51,11 @@ char VGrid::getPos(int colCoord, int rowCoord)
 			if ((width*r) + c == (width * rowCoord) + colCoord)
 			{
 				// SET variable to the value at position
-				vPos = vArray[(width * rowCoord) + colCoord];
-				return vPos;
+				characterAtPos = vArray[(width * rowCoord) + colCoord];
 			}
 		}
 	}
+	return characterAtPos;
 }
 
 void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
@@ -67,7 +70,6 @@ void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 			{
 				// SET array position to currentChar
 				vArray[(width*r) + c] = currentChar;
-				return;
 			}
 		}
 	}
@@ -110,10 +112,10 @@ void VGrid::displayGrid()
 	}
 }
 
-int VGrid::flag(int colCoord, int rowCoord)
+bool VGrid::flag(int colCoord, int rowCoord)
 {
 	char currentChar;
-	int  isFlagged = 1;
+	bool  isFlagged = true;
 
 	// return character at position in the array
 	currentChar = vArray[(width * rowCoord) + colCoord];
@@ -128,7 +130,7 @@ int VGrid::flag(int colCoord, int rowCoord)
 	else if (currentChar != '*')
 	{
 		// return code
-		isFlagged = 2;
+		isFlagged = false;
 	}
 	// IF position has NOT been flagged 
 	else
