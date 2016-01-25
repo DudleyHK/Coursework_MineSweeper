@@ -265,6 +265,7 @@ bool MineSweeper::loadGame()
 
 	continueGame = playGame();
 
+
 	return continueGame;
 }
 
@@ -273,12 +274,16 @@ bool MineSweeper::loadGame()
 bool MineSweeper::playGame()
 {
 	bool inGame = false;
-	int returnCode = 0;
 	int numOfMinesDisplayed = 0;
 	int mine = -1;
 
+	// select unused value
+	returnCode = 5;
+
+
 	// output instructions display
 	Display::instructions();
+
 
 	// Output dependent on number of mines hidden
 	if (numberOfMines > 1)
@@ -290,43 +295,40 @@ bool MineSweeper::playGame()
 		cout << numberOfMines << " mine is hidden." << endl;
 	}
 
-	// Print blank lines
-	cout << endl << endl;
-
 
 	inGame = true;
 	while (inGame)
 	{
+		// Print a line.
+		cout << endl;
+		cout << "===============================================" << endl << endl;
+
 		// output the visual grid.
 		visualGrid.displayGrid();
 
 		// guess coordinates
 		inputCoordinates();
 
-		// act upon user input
-		returnCode = actOnCoordInput();
-
 
 		switch (returnCode)
 		{
-		case 0:	/*IF PLAYER HAS HIT A MINE*/
-
-			// output looser display
-			Display::looser();
+		case -1:	/*IF PLAYER HAS HIT A MINE*/
 
 			// WHILE the number of mines displayed is NOT equal to the amount of mines
 			while (numOfMinesDisplayed <= numberOfMines)
 			{
-				// update visual grids array.
-				visualGrid.changeIntToChar(systemColCoord, systemRowCoord, mine);
-				
+				// Find and print each mine in the grid
+				locateAllMines();
+
 				// Plus one to counter
 				numOfMinesDisplayed++;
 			}
 
-
 			// display the grid
 			visualGrid.displayGrid();
+
+			// output looser display
+			Display::looser();
 
 			// go to:
 			continueGame = continueOrQuit();
@@ -335,21 +337,25 @@ bool MineSweeper::playGame()
 			inGame = false;
 			break;
 
-			/*1 = VALID INPUT. UNUSED FOR ERROR CHECKING*/
-
-		case 2: /*IF LETTER OPTION IS UNAVAILABLE*/
+		case 0: /*IF LETTER OPTION IS UNAVAILABLE*/
 
 			cout << "option unavailable. please check and try again" << endl;
-			cout << "---------------------------------------" << endl;
 			break;
 
-		case 3: /*GOTO MAIN MENU OPTIONS*/
-			continueGame = true;
+		case 1: /*GOTO MAIN MENU OPTIONS*/
 
-			// break out of the function, bypassing other options.
-			return continueGame;
+			// clear the console
+			system("cls");
 
-			break;
+			// output welcome display
+			Display::welcome();
+
+			// output mainmenu display
+			Display::mainMenuInterface();
+
+			// delete object and array memory
+			mineGrid.~MGrid();
+			visualGrid.~VGrid();
 		}
 
 		// update number of correctly flagged mines
@@ -369,7 +375,8 @@ bool MineSweeper::playGame()
 
 void MineSweeper::actOnCoordInput()
 {
-	bool isFlagged = false, isSafe = false;
+	bool isFlagged = false;
+	bool isSafe = false;
 	int valueAtPos = 0;
 
 
@@ -377,32 +384,32 @@ void MineSweeper::actOnCoordInput()
 	switch (actionLetter)
 	{
 	case 'F':
+
 		// if its possible flag the position
 		isFlagged = visualGrid.flag(systemColCoord, systemRowCoord);
 
 		if (isFlagged == false)
 		{
 			// option unavailable
-			returnCode = 2;
+			returnCode = 0;
 		}
 		break;
 
 	case 'D':
-		// check position
-		isSafe = mineGrid.dig(systemColCoord, systemRowCoord);
 
-		// If the position is a mine
-		if (isSafe == false)
+		// Check if position is a mine
+		valueAtPos = mineGrid.getPos(systemColCoord, systemRowCoord);
+
+		// if it is do:
+		if (valueAtPos == -1)
 		{
-			returnCode = 0;
-		}
-		else if (isSafe == true)
-		{
-			// option unavailable
-			returnCode = 2;
+			returnCode = -1;
 		}
 		else
 		{
+			// check position
+			mineGrid.dig(systemColCoord, systemRowCoord);
+
 			// GET the position and display its value.
 			valueAtPos = mineGrid.getPos(systemColCoord, systemColCoord);
 
@@ -411,9 +418,10 @@ void MineSweeper::actOnCoordInput()
 		}
 		break;
 
-	// Go back to main menu
 	case 'Q':
-		returnCode = 3;
+		// CHECK THISSSSS
+		returnCode = 1;
+
 		break;
 	}
 }
@@ -486,8 +494,8 @@ void MineSweeper::inputCoordinates()
 		cout << "Coordinates: ";
 
 		// READ input
-		cin >> inputCoordR;
 		cin >> inputCoordC;
+		cin >> inputCoordR;
 
 
 		// Call function to minus one from each coordinte input
@@ -502,10 +510,9 @@ void MineSweeper::inputCoordinates()
 
 		cout << endl;
 
-		// IF the user input is lower case
+		// IF the user input is lower case. Make uppercase
 		if (islower(actionLetter))
 		{
-			// Make uppercase
 			actionLetter = toupper(actionLetter);
 		}
 
@@ -537,8 +544,6 @@ void MineSweeper::inputCoordinates()
 }
 
 
-
-
 /*Check each element of the grids to check the number of total flags on the map, 
 and the number of flags correctly positioned on the map. This will avoid players
 being able to cheat by randomly placing 10 flags in the grid*/
@@ -551,7 +556,7 @@ void MineSweeper::updateCounter()
 		for (int col = 0; col < width; col++)
 		{
 			// GET values at each position of the grid for both objects
-			int vPos = visualGrid.getPos(col, row);
+			char vPos = visualGrid.getPos(col, row);
 			int mPos = mineGrid.getPos(col, row);
 
 			if (vPos == 'F')
@@ -572,6 +577,30 @@ void MineSweeper::updateCounter()
 	correctFlags = correctFlagsCounter;
 }
 
+
+/*This functions locates each mine in the number grid and sends the coordinates
+ of the position along with the number to the visual grid to be input into the
+ array.*/
+void MineSweeper::locateAllMines()
+{
+	int valueAtPos = 0;
+
+	// FOR each position in mine array
+	for (int r = 0; r < width; r++)
+	{
+		for (int c = 0; c < width; c++)
+		{
+			valueAtPos = mineGrid.getPos(c, r);
+
+			// if position in mArray = -1
+			if (valueAtPos == -1)
+			{
+				// call feedbk function with vArray coords
+				visualGrid.changeIntToChar(c, r, valueAtPos);
+			}
+		}
+	}
+}
 
 bool MineSweeper::continueOrQuit()
 {
@@ -601,8 +630,14 @@ bool MineSweeper::continueOrQuit()
 			mineGrid.~MGrid();
 			visualGrid.~VGrid();
 
+			// clear the console
 			system("cls");
-			welcome();
+
+			// output welcome display
+			Display::welcome();
+
+			// output main menu display
+			Display::mainMenuInterface();
 
 			break;
 

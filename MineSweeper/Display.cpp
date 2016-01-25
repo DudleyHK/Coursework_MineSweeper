@@ -43,22 +43,22 @@ void Display::instructions()
 void Display::winner()
 {
 	cout << endl;
-	cout << "/t:::::::::::::::" << endl;
-	cout << "/t::!!YOU WIN!!::" << endl;
-	cout << "/t:::::::::::::::" << endl;
+	cout << " :::::::::::::::" << endl;
+	cout << " ::!!YOU WIN!!::" << endl;
+	cout << " :::::::::::::::" << endl;
 	cout << "__________________________________________________________" << endl;
-	cout << endl << endl;
+	cout << endl;
 }
 
 
 void Display::looser()
 {
 	cout << endl;
-	cout << "/t:::::::::::::::" << endl;
-	cout << "/t:( YOU LOOSE ):" << endl;
-	cout << "/t:::::::::::::::" << endl;
+	cout << " :::::::::::::::" << endl;
+	cout << " :( YOU LOOSE ):" << endl;
+	cout << " :::::::::::::::" << endl;
 	cout << "__________________________________________________________" << endl;
-	cout << endl << endl;
+	cout << endl;
 }
 
 

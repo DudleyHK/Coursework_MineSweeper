@@ -45,6 +45,7 @@ public:
 	void inputGridSize();
 	void inputCoordinates();
 	void actOnCoordInput();
+	void locateAllMines();
 	void updateCounter();
 	bool continueOrQuit();
 

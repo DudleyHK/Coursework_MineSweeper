@@ -20,6 +20,10 @@ VGrid::~VGrid()
 {
 	delete[] vArray;
 	vArray = NULL;
+
+	height = 0;
+	width = 0;
+	numberOfMines = 0;
 }
 
 // these can be compressed into one like defaultsetup()
@@ -36,34 +40,34 @@ char VGrid::getPos(int colCoord, int rowCoord)
 	char vPos = '*';
 
 	// FOR every position in array
-	for (int row = height; row < 0; row--)
+	for (int r = 0; r < height; r++)
 	{
-		for (int col = width; col < 0; col--)
+		for (int c = 0; c < width; c++)
 		{
 			// IF array position is equal to coordinates position
-			if ((width*row) + col == (width * rowCoord) + colCoord)
+			if ((width*r) + c == (width * rowCoord) + colCoord)
 			{
 				// SET variable to the value at position
 				vPos = vArray[(width * rowCoord) + colCoord];
+				return vPos;
 			}
 		}
 	}
-
-	return vPos;
 }
 
 void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 {
 	// FOR each position in array
-	for (int row = height; row > 0; row--)
+	for (int r = 0; r < height; r++)
 	{
-		for (int col = width; col > 0; col--)
+		for (int c = 0; c < width; c++)
 		{
 			// IF array position is equal to coordinates position
-			if ((width * row) + col == (width*rowCoord) + colCoord)
+			if ((width * r) + c == (width*rowCoord) + colCoord)
 			{
 				// SET array position to currentChar
-				vArray[(width*row) + col] = currentChar;
+				vArray[(width*r) + c] = currentChar;
+				return;
 			}
 		}
 	}
@@ -72,12 +76,12 @@ void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 
 /***************************Run Time*******************************/
 
-
+/*Fill the array with the standard character*/
 void VGrid::initialiseArray()
 {
+	// create NEW array
 	vArray = new char[height*width];
 
-	// run through and fill array
 	for (int r = 0; r < height; r++)
 	{
 		for (int c = 0; c < width; c++)
@@ -87,19 +91,19 @@ void VGrid::initialiseArray()
 	}
 }
 
-/**DISPLAY THIS GRID FROM HEIGHT DOWN TO 0 TO FLIP THE GRID. ALSO DISPLAY NUMBERS NEXT TO THE GRID AND 
-numbers AT THE BOTTOM. **/
 void VGrid::displayGrid()
 {
-	// for each position
-	// run through and fill array
+	// FOR every row
 	for (int r = 0; r < height; r++)
 	{
+		// move away from side
 		cout << " ";
 
+		// FOR every column
 		for (int c = 0; c < width; c++)
 		{
-			cout << vArray[(0 * height) + c] << ' ';
+			// print
+			cout << vArray[(width*r) + c] << ' ';
 		}
 
 		cout << endl;
@@ -112,7 +116,7 @@ bool VGrid::flag(int colCoord, int rowCoord)
 	bool  isFlagged = true;
 
 	// return character at position in the array
-	currentChar = vArray[(width * rowCoord) + rowCoord];
+	currentChar = vArray[(width * rowCoord) + colCoord];
 
 	// IF position has NOT been flagged 
 	if (currentChar != 'F')
@@ -169,10 +173,6 @@ void VGrid::changeIntToChar(int colCoord, int rowCoord, int number)
 
 	// set position of vArray = to char
 	setPos(colCoord, rowCoord, setChar);
-
-
-
-
 }
 
 

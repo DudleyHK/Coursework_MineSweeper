@@ -26,7 +26,7 @@ public:
 	void initialiseArray();
 	void displayGrid();
 	void placeMines();
-	bool dig(int colCoord, int rowCoord);
+	void dig(int colCoord, int rowCoord);
 
 
 private:

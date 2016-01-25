@@ -17,8 +17,7 @@ public:
 	~Settings();
 	int getDefaultHeight();
 	int getDefaultWidth();
-	void setDefaultMines(int m);
-	int getNumberOfMines(int areaPtr, int gameMode);
+	int getNumberOfMines(int area, int gameMode);
 
 private:
 	/* DEFAULT VARIABLES*/
