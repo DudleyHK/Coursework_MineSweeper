@@ -39,6 +39,7 @@ int Settings::getDefaultWidth()
 
 int Settings::getNumberOfMines(int area, int gameMode)
 {
+	// answers convertted from variable type double to integers
 	switch (gameMode)
 	{
 	case 0:
@@ -46,15 +47,15 @@ int Settings::getNumberOfMines(int area, int gameMode)
 		break;
 	case 1:
 		//easy 15%
-		numberOfMines = (int) (area * 0.15);
+		numberOfMines = (int)(area * 0.15);
 		break;
 	case 2:
 		// medium 25%
-		numberOfMines = area * 0.25;
+		numberOfMines = (int)(area * 0.25);
 		break;
 	case 3:
 		// hard 40%
-		numberOfMines = area * 0.4;
+		numberOfMines = (int)(area * 0.4);
 		break;
 	}
 
