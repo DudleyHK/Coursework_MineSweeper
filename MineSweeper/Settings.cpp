@@ -46,7 +46,7 @@ int Settings::getNumberOfMines(int area, int gameMode)
 		break;
 	case 1:
 		//easy 15%
-		numberOfMines = area * 0.15;
+		numberOfMines = (int) (area * 0.15);
 		break;
 	case 2:
 		// medium 25%

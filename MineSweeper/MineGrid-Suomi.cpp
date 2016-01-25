@@ -16,17 +16,14 @@ using namespace std;
 
 MGrid::MGrid()
 {
-	// point to nothing
 	mArray = nullptr;
 }
 
 MGrid::~MGrid()
 {
-	// delte of the heap and set to no memory
 	delete[] mArray;
 	mArray = nullptr;
 
-	// reset main variables
 	height = 0;
 	width = 0;
 	numberOfMines = 0;
@@ -43,7 +40,7 @@ void MGrid::setSize(int h, int w, int m)
 /*Returns value at passed in coordinates position*/
 int MGrid::getPos(int colCoord, int rowCoord)
 {
-	int numberAtPos = 0;
+	int pos = 0;
 
 	// FOR every position in grid
 	for (int r = 0; r < height; r++)
@@ -54,12 +51,11 @@ int MGrid::getPos(int colCoord, int rowCoord)
 			if ((width*r) + c == (width * rowCoord) + colCoord)
 			{
 				// SET variable to the value at position
-				numberAtPos = mArray[(width * rowCoord) + colCoord];
+				pos = mArray[(width * rowCoord) + colCoord];
+				return pos;
 			}
 		}
 	}
-
-	return numberAtPos;
 }
 
 /***************************Run Time*******************************/
@@ -98,7 +94,7 @@ void MGrid::displayGrid()
 void MGrid::placeMines()
 {
 	// Random function
-	srand((unsigned int)(time(0)));
+	srand(time(0));
 
 	int pos = 0, counter = 0;
 
