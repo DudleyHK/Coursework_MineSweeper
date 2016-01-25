@@ -110,24 +110,33 @@ void VGrid::displayGrid()
 	}
 }
 
-bool VGrid::flag(int colCoord, int rowCoord)
+int VGrid::flag(int colCoord, int rowCoord)
 {
 	char currentChar;
-	bool  isFlagged = true;
+	int  isFlagged = 1;
 
 	// return character at position in the array
 	currentChar = vArray[(width * rowCoord) + colCoord];
 
+	// if the position is already flagged
+	if (currentChar == 'F')
+	{
+		// unflag
+		vArray[(width * rowCoord) + colCoord] = '*';
+	}
+	// if its anything other than astrix
+	else if (currentChar != '*')
+	{
+		// return code
+		isFlagged = 2;
+	}
 	// IF position has NOT been flagged 
-	if (currentChar != 'F')
+	else
 	{
 		// SET position in array to 'F'
 		vArray[(width * rowCoord) + colCoord] = 'F';
 	}
-	else
-	{
-		isFlagged = false;
-	}
+
 	
 	return isFlagged;
 }

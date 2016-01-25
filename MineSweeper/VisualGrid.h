@@ -25,7 +25,7 @@ public:
 
 	void initialiseArray();	
 	void displayGrid();
-	bool flag(int colCoord, int rowCoord);
+	int flag(int colCoord, int rowCoord);
 	void changeIntToChar(int colCoord, int rowCoord, int number);
 
 

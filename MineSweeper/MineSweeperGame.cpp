@@ -356,6 +356,9 @@ bool MineSweeper::playGame()
 			// delete object and array memory
 			mineGrid.~MGrid();
 			visualGrid.~VGrid();
+
+			// break out of loop
+			inGame = false;
 		}
 
 		// update number of correctly flagged mines
@@ -378,6 +381,7 @@ void MineSweeper::actOnCoordInput()
 	bool isFlagged = false;
 	bool isSafe = false;
 	int valueAtPos = 0;
+	char characterAtPos = '*';
 
 
 	// depending on the letter option
@@ -388,7 +392,7 @@ void MineSweeper::actOnCoordInput()
 		// if its possible flag the position
 		isFlagged = visualGrid.flag(systemColCoord, systemRowCoord);
 
-		if (isFlagged == false)
+		if (isFlagged == 2)
 		{
 			// option unavailable
 			returnCode = 0;
@@ -407,19 +411,24 @@ void MineSweeper::actOnCoordInput()
 		}
 		else
 		{
-			// check position
-			mineGrid.dig(systemColCoord, systemRowCoord);
+			// check if position is an 'F'
+			characterAtPos = visualGrid.getPos(systemColCoord, systemRowCoord);
 
-			// GET the position and display its value.
-			valueAtPos = mineGrid.getPos(systemColCoord, systemColCoord);
+			if (characterAtPos != 'F')
+			{
+				// check position
+				mineGrid.dig(systemColCoord, systemRowCoord);
 
-			// change the visual array.
-			visualGrid.changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
+				// GET the position and display its value.
+				valueAtPos = mineGrid.getPos(systemColCoord, systemColCoord);
+
+				// change the visual array.
+				visualGrid.changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
+			}
 		}
 		break;
 
 	case 'Q':
-		// CHECK THISSSSS
 		returnCode = 1;
 
 		break;
