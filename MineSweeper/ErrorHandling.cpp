@@ -12,9 +12,8 @@ using namespace std;
 /***************************Run Time*******************************/
 
 
-/*This function takes the users input as a string allowing the program to 
-check the whole input for invalid characters. The function will return an 
-error number*/
+/*This function takes the users grid size input aand check it against the 
+game mode settings. It will throw an exception if an error is found*/
 int ErrorHandling::validateHeightWidth(int height, int width, int gameMode)
 {
 	errorNumber = 0;
@@ -22,7 +21,7 @@ int ErrorHandling::validateHeightWidth(int height, int width, int gameMode)
 	// depending on the game mode 
 	if (gameMode == 1)
 	{
-		if ((height < 3 || height > 20) || (width < 3 || width > 20))
+		if ((height < 4 || height > 20) || (width < 4 || width > 20))
 		{
 			errorNumber = 8;
 		}

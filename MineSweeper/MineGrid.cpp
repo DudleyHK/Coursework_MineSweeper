@@ -70,7 +70,6 @@ void MGrid::initialiseArray()
 	// Create NEW array
 	mArray = new int[height*width];
 
-
 	for (int r = 0; r < height; r++)
 	{
 		for (int c = 0; c < width; c++)

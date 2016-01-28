@@ -13,7 +13,7 @@ using namespace std;
 /**START**/
 int main()
 {
-	// cerate new istances of boject in heap
+	// create new istances of ojects in heap
 	MineSweeper *msGame = new MineSweeper;
 	Display display;
 
@@ -25,8 +25,9 @@ int main()
 
 	while (gameLoop)
 	{
-		display.welcome();					// Print title
-		continueGame = msGame->mainMenu();	// Goto MainMenu
+		// output display and call function
+		display.welcome();	
+		continueGame = msGame->mainMenu();	
 
 
 		// IF the player wishes to exit the game
@@ -59,7 +60,6 @@ void MineSweeper::getNumberOfMines()
 {
 	int area = height * width;
 
-	// return value
 	numberOfMines = settings.getNumberOfMines(area, gameMode);
 }
 
@@ -379,64 +379,6 @@ bool MineSweeper::playGame()
 	return continueGame;
 }
 
-void MineSweeper::actOnCoordInput()
-{
-	bool isFlagged = false, isSafe = false;
-	int valueAtPos = 0;
-	char characterAtPos = '*';
-
-
-	// depending on the letter option
-	switch (actionLetter)
-	{
-	case 'F':
-
-		// if its possible flag the position
-		isFlagged = visualGrid->flag(systemColCoord, systemRowCoord);
-
-		if (isFlagged == false)
-		{
-			// option unavailable
-			returnCode = 0;
-		}
-		break;
-
-	case 'D':
-
-		// Check if position is a mine
-		valueAtPos = mineGrid->getPos(systemColCoord, systemRowCoord);
-
-		// if position is a mine
-		if (valueAtPos == -1)
-		{
-			returnCode = -1;
-		}
-		else
-		{
-			// check if position is an 'F'
-			characterAtPos = visualGrid->getPos(systemColCoord, systemRowCoord);
-
-			if (characterAtPos != 'F')
-			{
-				// check position
-				mineGrid->dig(systemColCoord, systemRowCoord);
-
-				// GET the position and display its value.
-				valueAtPos = mineGrid->getPos(systemColCoord, systemColCoord);
-
-				// change the visual array.
-				visualGrid->changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
-			}
-		}
-		break;
-
-	case 'Q':
-		returnCode = 1;
-
-		break;
-	}
-}
-
 
 void MineSweeper::inputGridSize()
 {
@@ -535,7 +477,7 @@ void MineSweeper::inputCoordinates()
 		// check for errors
 		try
 		{
-			// go to:
+			
 			errorHandling.validateCoordinates(systemColCoord, systemRowCoord,
 				actionLetter, height, width);
 
@@ -550,14 +492,74 @@ void MineSweeper::inputCoordinates()
 			// Print error message
 			errorHandling.printMessage(n);
 
-			// go to:
+			
 			display->tryAgain();
 		}
 	} // END while
 
-	// go to:
-	actOnCoordInput();
+
+	actOnLetterInput();
 }
+
+
+void MineSweeper::actOnLetterInput()
+{
+	bool isFlagged = false, isSafe = false;
+	int valueAtPos = 0;
+	char characterAtPos = '*';
+
+
+	// depending on the letter option
+	switch (actionLetter)
+	{
+	case 'F':
+
+		// if its possible flag the position
+		isFlagged = visualGrid->flag(systemColCoord, systemRowCoord);
+
+		if (isFlagged == false)
+		{
+			// option unavailable
+			returnCode = 0;
+		}
+		break;
+
+	case 'D':
+
+		// Check if position is a mine
+		valueAtPos = mineGrid->getPos(systemColCoord, systemRowCoord);
+
+		// if position is a mine
+		if (valueAtPos == -1)
+		{
+			returnCode = -1;
+		}
+		else
+		{
+			// check if position is an 'F'
+			characterAtPos = visualGrid->getPos(systemColCoord, systemRowCoord);
+
+			if (characterAtPos != 'F')
+			{
+				// check position
+				mineGrid->dig(systemColCoord, systemRowCoord);
+
+				// GET the position and display its value.
+				valueAtPos = mineGrid->getPos(systemColCoord, systemColCoord);
+
+				// change the visual array.
+				visualGrid->changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
+			}
+		}
+		break;
+
+		// to exit the game
+	case 'Q':
+		returnCode = 1;
+		break;
+	}
+}
+
 
 
 /*Check each element of the grids to check the number of total flags on the map, 

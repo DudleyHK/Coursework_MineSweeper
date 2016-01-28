@@ -15,9 +15,9 @@ using namespace std;
 Settings::Settings()
 {
 	// Default Settings
-	defaultHeight = 5;
-	defaultWidth = 5;
-	numberOfMines = 5;
+	defaultHeight = 10;
+	defaultWidth = 10;
+	numberOfMines = 10;
 }
 
 /*Functions managing the default settings*/
@@ -39,19 +39,19 @@ int Settings::getNumberOfMines(int area, int gameMode)
 	switch (gameMode)
 	{
 	case 0:
-		numberOfMines = 5;
+		numberOfMines = 10;
 		break;
 	case 1:
 		//easy 15%
 		numberOfMines = (int)(area * 0.15);
 		break;
 	case 2:
-		// medium 25%
-		numberOfMines = (int)(area * 0.25);
+		// medium 20%
+		numberOfMines = (int)(area * 0.2);
 		break;
 	case 3:
-		// hard 40%
-		numberOfMines = (int)(area * 0.4);
+		// hard 35%
+		numberOfMines = (int)(area * 0.35);
 		break;
 	}
 

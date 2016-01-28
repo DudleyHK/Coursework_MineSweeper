@@ -42,9 +42,9 @@ public:
 	bool playGame();
 	void inputGridSize();
 	void inputCoordinates();
-	void actOnCoordInput();
-	void locateAllMines();
+	void actOnLetterInput();
 	void updateCounter();
+	void locateAllMines();
 	bool continueOrQuit();
 
 
