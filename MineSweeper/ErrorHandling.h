@@ -14,11 +14,10 @@ public:
 	/***************************Run Time*******************************/
 
 	int validateHeightWidth(int height, int width, int gameMode);
-
 	void validateCoordinates(int coordCol, int coordRow, char actionLetter,
 		int height, int width);
-
 	void printMessage(int errorNumber);
+
 
 private:
 	int errorNumber;

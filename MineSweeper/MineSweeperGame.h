@@ -13,14 +13,13 @@
 #include "Display.h"
 #include "ErrorHandling.h"
 
-using namespace Display;
-
 class MineSweeper
 {
 public:
 	
 	MGrid *mineGrid = new MGrid;
-	VGrid visualGrid;
+	VGrid *visualGrid = new VGrid;
+	Display *display = new Display;
 	Settings settings;
 	ErrorHandling errorHandling;
 

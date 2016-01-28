@@ -1,11 +1,12 @@
 /*
 	Solution: System
 	Author: Dudley Dawes
-	Summary: This namespace is used to output user interface displays.
+	Summary: This class is used to output user interface displays.
 */
 
-namespace Display
+class Display
 {
+public:
 	void winner();
 	void looser();
 	void welcome();
@@ -13,4 +14,4 @@ namespace Display
 	void settingsInterface();
 	void mainMenuInterface();
 	void tryAgain();
-}
+};

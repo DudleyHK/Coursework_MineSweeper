@@ -50,6 +50,7 @@ is valid */
 void ErrorHandling::validateCoordinates(int coordCol, int coordRow, char actionLetter,
 	int height, int width)
 {
+	
 	// Check coordinates 
 	if (coordCol < 0 || coordCol > width - 1)
 	{

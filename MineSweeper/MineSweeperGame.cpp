@@ -13,8 +13,9 @@ using namespace std;
 /**START**/
 int main()
 {
-	// cerate instance of the mineSweeper class in the Heap.
+	// cerate new istances of boject in heap
 	MineSweeper *msGame = new MineSweeper;
+	Display display;
 
 	bool continueGame = true;
 	bool gameLoop = false;
@@ -24,7 +25,7 @@ int main()
 
 	while (gameLoop)
 	{
-		Display::welcome();					// Print title
+		display.welcome();					// Print title
 		continueGame = msGame->mainMenu();	// Goto MainMenu
 
 
@@ -66,7 +67,7 @@ void MineSweeper::getNumberOfMines()
 void MineSweeper::passSize()
 {
 	mineGrid->setSize(height, width, numberOfMines);
-	visualGrid.setSize(height, width, numberOfMines);
+	visualGrid->setSize(height, width, numberOfMines);
 }
 
 
@@ -87,7 +88,7 @@ bool MineSweeper::mainMenu()
 
 
 	// output main menu display
-	Display::mainMenuInterface();
+	display->mainMenuInterface();
 
 
 	// RUN loop until input is valid
@@ -121,7 +122,7 @@ bool MineSweeper::mainMenu()
 			system("cls");
 
 			// output welcome display
-			Display::welcome();
+			display->welcome();
 
 			continueGame = loadGame();
 			break;
@@ -129,12 +130,12 @@ bool MineSweeper::mainMenu()
 		case 2:
 			// clear console and output welcome display
 			system("cls");
-			Display::welcome();
+			display->welcome();
 
 			settingsMenu();
 
 			// output main menu display
-			Display::mainMenuInterface();
+			display->mainMenuInterface();
 			break;
 
 		case 3:
@@ -149,7 +150,7 @@ bool MineSweeper::mainMenu()
 			cout << "Menu value " << userInput << " does not exist" << endl;
 
 			// output try again display
-			Display::tryAgain();
+			display->tryAgain();
 
 			break;
 
@@ -163,6 +164,8 @@ bool MineSweeper::mainMenu()
 
 			// delete allocated memory
 			delete mineGrid;
+			delete visualGrid;
+			delete display;
 		
 		}
 	} // END menu loop
@@ -178,7 +181,7 @@ void MineSweeper::settingsMenu()
 	int userInput = 0;
 
 	// output the settings menu display
-	Display::settingsInterface();
+	display->settingsInterface();
 
 	
 	isRepeat = true;
@@ -220,7 +223,7 @@ void MineSweeper::settingsMenu()
 			cout << "Menu value " << userInput << " does not exist" << endl;
 			
 			// output try again display
-			Display::tryAgain();
+			display->tryAgain();
 			break;
 
 		}// END switch
@@ -245,7 +248,7 @@ void MineSweeper::settingsMenu()
 	system("cls");
 
 	// output the welcome display
-	Display::welcome();
+	display->welcome();
 }
 
 
@@ -259,7 +262,7 @@ bool MineSweeper::loadGame()
 	
 	// initialise both arrays
 	mineGrid->initialiseArray();
-	visualGrid.initialiseArray();
+	visualGrid->initialiseArray();
 
 
 	continueGame = playGame();
@@ -280,7 +283,7 @@ bool MineSweeper::playGame()
 
 
 	// output instructions display
-	Display::instructions();
+	display->instructions();
 
 
 	// Output dependent on number of mines hidden
@@ -302,7 +305,7 @@ bool MineSweeper::playGame()
 		cout << "===============================================" << endl << endl;
 
 		// output the visual grid.
-		visualGrid.displayGrid();
+		visualGrid->displayGrid();
 
 		// guess coordinates
 		inputCoordinates();
@@ -323,10 +326,10 @@ bool MineSweeper::playGame()
 			}
 
 			// display the grid
-			visualGrid.displayGrid();
+			visualGrid->displayGrid();
 
 			// output looser display
-			Display::looser();
+			display->looser();
 
 			continueGame = continueOrQuit();
 
@@ -345,14 +348,14 @@ bool MineSweeper::playGame()
 			system("cls");
 
 			// output welcome display
-			Display::welcome();
+			display->welcome();
 
 			// output mainmenu display
-			Display::mainMenuInterface();
+			display->mainMenuInterface();
 
 			// delete object and array memory
 			mineGrid->~MGrid();
-			visualGrid.~VGrid();
+			visualGrid->~VGrid();
 
 			// break out of loop
 			inGame = false;
@@ -365,7 +368,7 @@ bool MineSweeper::playGame()
 		if (correctFlags == numberOfMines && totalFlags == numberOfMines)
 		{
 			// output display
-			Display::winner();
+			display->winner();
 
 			continueGame = continueOrQuit();
 
@@ -389,7 +392,7 @@ void MineSweeper::actOnCoordInput()
 	case 'F':
 
 		// if its possible flag the position
-		isFlagged = visualGrid.flag(systemColCoord, systemRowCoord);
+		isFlagged = visualGrid->flag(systemColCoord, systemRowCoord);
 
 		if (isFlagged == false)
 		{
@@ -411,7 +414,7 @@ void MineSweeper::actOnCoordInput()
 		else
 		{
 			// check if position is an 'F'
-			characterAtPos = visualGrid.getPos(systemColCoord, systemRowCoord);
+			characterAtPos = visualGrid->getPos(systemColCoord, systemRowCoord);
 
 			if (characterAtPos != 'F')
 			{
@@ -422,7 +425,7 @@ void MineSweeper::actOnCoordInput()
 				valueAtPos = mineGrid->getPos(systemColCoord, systemColCoord);
 
 				// change the visual array.
-				visualGrid.changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
+				visualGrid->changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
 			}
 		}
 		break;
@@ -477,7 +480,7 @@ void MineSweeper::inputGridSize()
 			isValid = false;
 
 			// output try agian display
-			Display::tryAgain();
+			display->tryAgain();
 		}
 
 		// IF isValid is TRUE exit loop
@@ -548,7 +551,7 @@ void MineSweeper::inputCoordinates()
 			errorHandling.printMessage(n);
 
 			// go to:
-			Display::tryAgain();
+			display->tryAgain();
 		}
 	} // END while
 
@@ -569,7 +572,7 @@ void MineSweeper::updateCounter()
 		for (int col = 0; col < width; col++)
 		{
 			// GET values at each position of the grid for both objects
-			char vPos = visualGrid.getPos(col, row);
+			char vPos = visualGrid->getPos(col, row);
 			int mPos = mineGrid->getPos(col, row);
 
 			if (vPos == 'F')
@@ -610,7 +613,7 @@ void MineSweeper::locateAllMines()
 			if (valueAtPos == -1)
 			{
 				// call feedbk function with vArray coords
-				visualGrid.changeIntToChar(c, r, valueAtPos);
+				visualGrid->changeIntToChar(c, r, valueAtPos);
 			}
 		}
 	}
@@ -645,16 +648,16 @@ bool MineSweeper::continueOrQuit()
 
 			// delete the memory 
 			mineGrid->~MGrid();
-			visualGrid.~VGrid();
+			visualGrid->~VGrid();
 
 			// clear the console
 			system("cls");
 
 			// output welcome display
-			Display::welcome();
+			display->welcome();
 
 			// output main menu display
-			Display::mainMenuInterface();
+			display->mainMenuInterface();
 
 			break;
 
@@ -670,7 +673,7 @@ bool MineSweeper::continueOrQuit()
 			cout << "Menu letter " << userInput << " does not exist" << endl;
 
 			// output try again display
-			Display::tryAgain();
+			display->tryAgain();
 			break;
 		}
 	}
