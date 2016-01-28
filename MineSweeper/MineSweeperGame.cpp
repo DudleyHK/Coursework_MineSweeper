@@ -13,8 +13,8 @@ using namespace std;
 /**START**/
 int main()
 {
-	// cerate instance of the mineSweeper class.
-	MineSweeper msGame;
+	// cerate instance of the mineSweeper class in the Heap.
+	MineSweeper *msGame = new MineSweeper;
 
 	bool continueGame = true;
 	bool gameLoop = false;
@@ -25,7 +25,7 @@ int main()
 	while (gameLoop)
 	{
 		Display::welcome();					// Print title
-		continueGame = msGame.mainMenu();	// Goto MainMenu
+		continueGame = msGame->mainMenu();	// Goto MainMenu
 
 
 		// IF the player wishes to exit the game
@@ -33,6 +33,9 @@ int main()
 		{
 			// break out of the loop
 			gameLoop = false;
+
+			// delete the memory to avoid errors
+			delete msGame;
 		}
 	} // END loop
 
@@ -62,7 +65,7 @@ void MineSweeper::getNumberOfMines()
 /*Pass Height, Width and Number of Mines to the Mine Grid and Visual Grid*/
 void MineSweeper::passSize()
 {
-	mineGrid.setSize(height, width, numberOfMines);
+	mineGrid->setSize(height, width, numberOfMines);
 	visualGrid.setSize(height, width, numberOfMines);
 }
 
@@ -157,6 +160,10 @@ bool MineSweeper::mainMenu()
 		{
 			// break loop
 			isRepeat = false;
+
+			// delete allocated memory
+			delete mineGrid;
+		
 		}
 	} // END menu loop
 
@@ -250,16 +257,12 @@ bool MineSweeper::loadGame()
 	// pass variables to the mine and visual object
 	passSize();
 	
-	// initialise mine and visual array
-	mineGrid.initialiseArray();
+	// initialise both arrays
+	mineGrid->initialiseArray();
 	visualGrid.initialiseArray();
-
-	// randomly place mines
-	mineGrid.placeMines();
 
 
 	continueGame = playGame();
-
 
 	return continueGame;
 }
@@ -348,7 +351,7 @@ bool MineSweeper::playGame()
 			Display::mainMenuInterface();
 
 			// delete object and array memory
-			mineGrid.~MGrid();
+			mineGrid->~MGrid();
 			visualGrid.~VGrid();
 
 			// break out of loop
@@ -398,7 +401,7 @@ void MineSweeper::actOnCoordInput()
 	case 'D':
 
 		// Check if position is a mine
-		valueAtPos = mineGrid.getPos(systemColCoord, systemRowCoord);
+		valueAtPos = mineGrid->getPos(systemColCoord, systemRowCoord);
 
 		// if position is a mine
 		if (valueAtPos == -1)
@@ -413,10 +416,10 @@ void MineSweeper::actOnCoordInput()
 			if (characterAtPos != 'F')
 			{
 				// check position
-				mineGrid.dig(systemColCoord, systemRowCoord);
+				mineGrid->dig(systemColCoord, systemRowCoord);
 
 				// GET the position and display its value.
-				valueAtPos = mineGrid.getPos(systemColCoord, systemColCoord);
+				valueAtPos = mineGrid->getPos(systemColCoord, systemColCoord);
 
 				// change the visual array.
 				visualGrid.changeIntToChar(systemColCoord, systemRowCoord, valueAtPos);
@@ -567,7 +570,7 @@ void MineSweeper::updateCounter()
 		{
 			// GET values at each position of the grid for both objects
 			char vPos = visualGrid.getPos(col, row);
-			int mPos = mineGrid.getPos(col, row);
+			int mPos = mineGrid->getPos(col, row);
 
 			if (vPos == 'F')
 			{
@@ -601,7 +604,7 @@ void MineSweeper::locateAllMines()
 	{
 		for (int c = 0; c < width; c++)
 		{
-			valueAtPos = mineGrid.getPos(c, r);
+			valueAtPos = mineGrid->getPos(c, r);
 
 			// if position in mArray = -1
 			if (valueAtPos == -1)
@@ -641,7 +644,7 @@ bool MineSweeper::continueOrQuit()
 			isRepeat = false;
 
 			// delete the memory 
-			mineGrid.~MGrid();
+			mineGrid->~MGrid();
 			visualGrid.~VGrid();
 
 			// clear the console

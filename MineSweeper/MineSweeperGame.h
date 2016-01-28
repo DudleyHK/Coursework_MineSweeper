@@ -19,7 +19,7 @@ class MineSweeper
 {
 public:
 	
-	MGrid mineGrid;
+	MGrid *mineGrid = new MGrid;
 	VGrid visualGrid;
 	Settings settings;
 	ErrorHandling errorHandling;

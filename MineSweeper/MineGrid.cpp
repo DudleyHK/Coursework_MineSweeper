@@ -78,6 +78,9 @@ void MGrid::initialiseArray()
 			mArray[(width*r) + c] = 0;
 		}
 	}
+
+	// randomly set mine positions
+	placeMines();
 }
 
 void MGrid::displayGrid()
