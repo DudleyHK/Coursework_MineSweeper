@@ -15,18 +15,23 @@ VGrid::VGrid()
 {
 	// set array to point at nothing
 	vArray = nullptr;
-}
-
-VGrid::~VGrid()
-{
-	// delete off heap and point back to no memory
-	delete[] vArray;
-	vArray = nullptr;
 
 	// reset main variables
 	height = 0;
 	width = 0;
 	numberOfMines = 0;
+}
+
+VGrid::~VGrid()
+{
+	reset();
+}
+
+void VGrid::reset()
+{
+	// delete off heap and point back to no memory
+	delete[] vArray;
+	vArray = nullptr;
 }
 
 // these can be compressed into one like defaultsetup()
