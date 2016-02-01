@@ -80,7 +80,7 @@ private:
 
 	/* MODE AND CONTINUE OPTION */
 	int gameMode = 0;
-	bool continueGame = 0;
+	bool continueGame = false;
 
 	/* FLAG INFORMATION */
 	int correctFlags = 0, totalFlags = 0;

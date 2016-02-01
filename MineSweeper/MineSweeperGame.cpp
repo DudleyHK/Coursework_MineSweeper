@@ -53,6 +53,7 @@ MineSweeper::MineSweeper()
 {
 	// constuctor
 }
+
 /* return default values if game mode is 0. Else calculate number of mines 
 based on the difficult mode.*/
 void MineSweeper::getNumberOfMines()
@@ -332,14 +333,18 @@ bool MineSweeper::playGame()
 			inGame = playGameGoToMainMenu();
 		}
 
-		// update number of correctly flagged mines
-		updateCounter();
-
-		// Check if game is won
-		if (correctFlags == numberOfMines && totalFlags == numberOfMines)
+		if (returnCode != 1)
 		{
-			// output display
-			display->winner();
+
+			// update number of correctly flagged mines
+			updateCounter();
+
+			// Check if game is won
+			if (correctFlags == numberOfMines && totalFlags == numberOfMines)
+			{
+				// output display
+				display->winner();
+			}
 		}
 	} // END while
 
@@ -655,6 +660,7 @@ bool MineSweeper::continueOrQuit()
 	while (isRepeat)
 	{
 		// prompt for input
+		cout << endl;
 		cout << "Continue Y/N?" << endl;
 		cin >> userInput;
 
@@ -672,18 +678,7 @@ bool MineSweeper::continueOrQuit()
 			continueGame = true;
 			isRepeat = false;
 
-			// delete the memory 
-			mineGrid->reset();
-			visualGrid->reset();
-
-			// clear the console
-			system("cls");
-
-			// output welcome display
-			display->welcome();
-
-			// output main menu display
-			display->mainMenuInterface();
+			playGameGoToMainMenu();
 
 			break;
 
