@@ -72,7 +72,7 @@ void Display::settingsInterface()
 
 	cout << "Easy:\tMin 4 x 4. 15% Mines" << endl;
 	cout << "Medium: Min 5 x 5. 20% Mines" << endl;
-	cout << "Hard:\tMin 8 x 8. 35% Mines" << endl << endl;
+	cout << "Hard:\tMin 8 x 8. 30% Mines" << endl << endl;
 
 	cout << "Max Grid Size: 20 x 20" << endl;
 	cout << endl << endl;

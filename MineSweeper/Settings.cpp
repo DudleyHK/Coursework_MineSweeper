@@ -50,8 +50,8 @@ int Settings::getNumberOfMines(int area, int gameMode)
 		numberOfMines = (int)(area * 0.2);
 		break;
 	case 3:
-		// hard 35%
-		numberOfMines = (int)(area * 0.35);
+		// hard 30%
+		numberOfMines = (int)(area * 0.3);
 		break;
 	}
 
