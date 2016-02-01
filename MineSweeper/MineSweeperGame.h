@@ -16,12 +16,7 @@
 class MineSweeper
 {
 public:
-	
-	MGrid *mineGrid = new MGrid;
-	VGrid *visualGrid = new VGrid;
-	Display *display = new Display;
-	Settings settings;
-	ErrorHandling errorHandling;
+
 
 	/*************************Data Access******************************/
 
@@ -34,21 +29,41 @@ public:
 	/****************************PreGame*******************************/
 
 	bool mainMenu();
+	void mainMenuPlayGame();
+	void mainMenuSettings();
+	bool mainMenuIsExit();
+
+	void menuValueIsInvaild(int userInput);
+
 	void settingsMenu();
 	bool loadGame();		
 
 	/***************************Run Time*******************************/
 
 	bool playGame();
+	bool playGameIsHit();
+	bool playGameGoToMainMenu();
+
 	void inputGridSize();
+	bool inputGridSizeErrorCheck();
 	void inputCoordinates();
+	bool inputCoordinatesErrorCheck();
+
 	void actOnLetterInput();
+	int actOnLetterInputDig();
+
 	void updateCounter();
 	void locateAllMines();
+
 	bool continueOrQuit();
 
-
 private:
+
+	MGrid *mineGrid = new MGrid;
+	VGrid *visualGrid = new VGrid;
+	Display *display = new Display;
+	Settings settings;
+	ErrorHandling errorHandling;
 
 	/* SIZE AND COORDINATE INFORMATION */
 	int height, width, numberOfMines;

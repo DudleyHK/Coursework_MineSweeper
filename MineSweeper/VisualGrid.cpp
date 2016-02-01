@@ -15,18 +15,23 @@ VGrid::VGrid()
 {
 	// set array to point at nothing
 	vArray = nullptr;
-}
-
-VGrid::~VGrid()
-{
-	// delete off heap and point back to no memory
-	delete[] vArray;
-	vArray = nullptr;
 
 	// reset main variables
 	height = 0;
 	width = 0;
 	numberOfMines = 0;
+}
+
+VGrid::~VGrid()
+{
+	reset();
+}
+
+void VGrid::reset()
+{
+	// delete off heap and point back to no memory
+	delete[] vArray;
+	vArray = nullptr;
 }
 
 // these can be compressed into one like defaultsetup()
@@ -95,18 +100,33 @@ void VGrid::initialiseArray()
 
 void VGrid::displayGrid()
 {
+	int columnNo = 0, rowNo = 0;
+
 	// FOR every row
 	for (int r = 0; r < height; r++)
 	{
-		// move away from side
-		cout << " ";
+		rowNo++;
+
+		if (rowNo < 10)
+		{
+			// move two away from side
+			cout << "  " << rowNo << "| ";
+		}
+		else
+		{
+			// move one spce from side
+			cout << " " << rowNo << "| ";
+		}
 
 		// FOR every column
 		for (int c = 0; c < width; c++)
 		{
-			// print
+
 			cout << vArray[(width*r) + c] << ' ';
+			columnNo++;
 		}
+
+		columnNo = 0;
 
 		cout << endl;
 	}

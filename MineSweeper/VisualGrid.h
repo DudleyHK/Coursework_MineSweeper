@@ -16,6 +16,8 @@ public:
 	VGrid();
 	~VGrid();
 
+	void reset();
+
 	void setSize(int h, int w, int m);
 	char getPos(int colCoord, int rowCoord);
 	void setPos(int colCoord, int rowCoord, char currentChar);
