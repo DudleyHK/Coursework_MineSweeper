@@ -48,12 +48,11 @@ int main()
 /**************************Data Access******************************/
 
 MineSweeper::MineSweeper()
+	: gameMode(-1),
+	continueGame(true)
 {
-	// SET game mode variable as UNUSED
-	gameMode = -1;
-	continueGame = true;
+	// constuctor
 }
-
 /* return default values if game mode is 0. Else calculate number of mines 
 based on the difficult mode.*/
 void MineSweeper::getNumberOfMines()
@@ -107,7 +106,7 @@ bool MineSweeper::mainMenu()
 			break;
 
 		case 2:
-			mainMenuSettings();
+			mainMenuDisplay();
 			break;
 
 		case 3:
@@ -155,7 +154,7 @@ void MineSweeper::mainMenuPlayGame()
 	continueGame = loadGame();
 }
 
-void MineSweeper::mainMenuSettings()
+void MineSweeper::mainMenuDisplay()
 {
 	// clear console and output welcome display
 	system("cls");

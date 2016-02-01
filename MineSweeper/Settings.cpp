@@ -13,11 +13,16 @@ using namespace std;
 /*************************Data Access******************************/
 
 Settings::Settings()
+	:defaultHeight(10),
+	defaultWidth(10),
+	numberOfMines(10)
 {
-	// Default Settings
-	defaultHeight = 10;
-	defaultWidth = 10;
-	numberOfMines = 10;
+	// constructer
+}
+
+Settings::~Settings()
+{
+	//empty
 }
 
 /*Functions managing the default settings*/

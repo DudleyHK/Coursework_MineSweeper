@@ -9,6 +9,17 @@
 using namespace std;
 
 
+ErrorHandling::ErrorHandling()
+{
+	// empty
+}
+
+ErrorHandling::~ErrorHandling()
+{
+	//empty
+}
+
+
 /***************************Run Time*******************************/
 
 

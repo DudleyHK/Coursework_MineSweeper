@@ -14,13 +14,14 @@ public:
 	/*************************Data Access******************************/
 
 	Settings();
-	
+	~Settings();
+
 	int getDefaultHeight();
 	int getDefaultWidth();
 	int getNumberOfMines(int area, int gameMode);
 
 private:
 	/* DEFAULT VARIABLES*/
-	int defaultHeight, defaultWidth, numberOfMines;
+	int defaultHeight = 0, defaultWidth = 0, numberOfMines = 0;
 };
 

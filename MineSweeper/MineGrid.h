@@ -31,10 +31,11 @@ public:
 	void dig(int colCoord, int rowCoord);
 
 
+
 private:
 	/* SIZE INFORMATION */
-	int height, width, numberOfMines;
+	int height = 0, width = 0, numberOfMines = 0;
 
 	/* MINE ARRAY */
-	int *mArray;
+	int *mArray = nullptr;
 };

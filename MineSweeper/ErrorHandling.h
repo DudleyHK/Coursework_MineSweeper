@@ -11,6 +11,9 @@ class ErrorHandling
 {
 public:
 
+	ErrorHandling();
+	~ErrorHandling();
+
 	/***************************Run Time*******************************/
 
 	int validateHeightWidth(int height, int width, int gameMode);
@@ -20,5 +23,5 @@ public:
 
 
 private:
-	int errorNumber;
+	int errorNumber = 0;
 };

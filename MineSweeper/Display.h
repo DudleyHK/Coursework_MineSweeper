@@ -7,6 +7,11 @@
 class Display
 {
 public:
+
+	Display();
+	~Display();
+
+
 	void winner();
 	void looser();
 	void welcome();

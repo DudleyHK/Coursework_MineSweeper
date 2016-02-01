@@ -33,8 +33,8 @@ public:
 
 private:
 	/* SIZE INFORMATION */
-	int height, width, numberOfMines;
+	int height = 0, width = 0, numberOfMines = 0;
 
 	/* VISUAL ARRAY */
-	char* vArray;
+	char* vArray = nullptr;
 };

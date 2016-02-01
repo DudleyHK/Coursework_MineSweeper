@@ -10,6 +10,17 @@
 using namespace std;
 
 
+Display::Display()
+{
+	// empty
+}
+
+Display::~Display()
+{
+	//Empty
+}
+
+
 void Display::welcome()
 {
 	cout << "\t\t :::::::::::::::::::::::" << endl;
