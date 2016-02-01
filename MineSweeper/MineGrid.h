@@ -16,6 +16,8 @@ public:
 
 	MGrid();
 	~MGrid();
+
+	void reset();
 	
 	void setSize(int height, int width, int numberOfMines);
 	int getPos(int colCoord, int rowCoord);
