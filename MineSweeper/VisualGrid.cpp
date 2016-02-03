@@ -31,9 +31,13 @@ void VGrid::reset()
 	// delete off heap and point back to no memory
 	delete[] vArray;
 	vArray = nullptr;
+
+	height = 0;
+	width = 0;
+	numberOfMines = 0;
 }
 
-// these can be compressed into one like defaultsetup()
+
 void VGrid::setSize(int h, int w, int m)
 {
 	height = h;
@@ -41,42 +45,21 @@ void VGrid::setSize(int h, int w, int m)
 	numberOfMines = m;
 }
 
+
 /*Return value of the coordinates position*/
 char VGrid::getPos(int colCoord, int rowCoord)
 {
 	char characterAtPos = '*';
 
-	// FOR every position in array
-	for (int r = 0; r < height; r++)
-	{
-		for (int c = 0; c < width; c++)
-		{
-			// IF array position is equal to coordinates position
-			if ((width*r) + c == (width * rowCoord) + colCoord)
-			{
-				// SET variable to the value at position
-				characterAtPos = vArray[(width * rowCoord) + colCoord];
-			}
-		}
-	}
+	characterAtPos = vArray[(width * rowCoord) + colCoord];
+
 	return characterAtPos;
 }
 
+/* SET array position to currentChar */
 void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 {
-	// FOR each position in array
-	for (int r = 0; r < height; r++)
-	{
-		for (int c = 0; c < width; c++)
-		{
-			// IF array position is equal to coordinates position
-			if ((width * r) + c == (width*rowCoord) + colCoord)
-			{
-				// SET array position to currentChar
-				vArray[(width*r) + c] = currentChar;
-			}
-		}
-	}
+	vArray[(width*rowCoord) + colCoord] = currentChar;
 }
 
 
@@ -96,6 +79,7 @@ void VGrid::initialiseArray()
 		}
 	}
 }
+
 
 void VGrid::displayGrid()
 {
@@ -130,6 +114,7 @@ void VGrid::displayGrid()
 		cout << endl;
 	}
 }
+
 
 bool VGrid::flag(int colCoord, int rowCoord)
 {

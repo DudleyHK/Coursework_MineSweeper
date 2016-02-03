@@ -26,6 +26,7 @@ public:
 	/***************************Run Time*******************************/
 
 	void initialiseArray();
+	void mineGridCalculations();
 	void displayGrid();
 	void placeMines();
 	void dig(int colCoord, int rowCoord);

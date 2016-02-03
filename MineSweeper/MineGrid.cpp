@@ -33,6 +33,10 @@ void MGrid::reset()
 	// delte of the heap and set to no memory
 	delete[] mArray;
 	mArray = nullptr;
+	
+	height = 0;
+	width = 0;
+	numberOfMines = 0;
 }
 
 void MGrid::setSize(int h, int w, int m)
@@ -47,19 +51,8 @@ int MGrid::getPos(int colCoord, int rowCoord)
 {
 	int numberAtPos = 0;
 
-	// FOR every position in grid
-	for (int r = 0; r < height; r++)
-	{
-		for (int c = 0; c < width; c++)
-		{
-			// IF coordintes match position in loop
-			if ((width*r) + c == (width * rowCoord) + colCoord)
-			{
-				// SET variable to the value at position
-				numberAtPos = mArray[(width * rowCoord) + colCoord];
-			}
-		}
-	}
+	// SET variable to the value at position
+	numberAtPos = mArray[(width * rowCoord) + colCoord];
 
 	return numberAtPos;
 }
@@ -82,7 +75,50 @@ void MGrid::initialiseArray()
 
 	// randomly set mine positions
 	placeMines();
+
+	// UPDATE grid accordingly.
+	mineGridCalculations();
 }
+
+
+
+void MGrid::mineGridCalculations()
+{
+	// FOR every position in grid
+	for (int rowPos = 0; rowPos < height; rowPos++)
+	{
+		for (int colPos = 0; colPos < width; colPos++)
+		{
+			// IF the position is a MINE
+			if (mArray[(width*rowPos) + colPos] == -1)
+			{
+				// FOR each of the adjecent squares
+				for (int adjacentRow = rowPos - 1; adjacentRow <= rowPos + 1;
+					adjacentRow++)
+				{
+					for (int adjacentCol = colPos - 1; adjacentCol <= colPos + 1;
+						adjacentCol++)
+					{
+						// IF position in bounds
+						if (adjacentRow >= 0 && adjacentRow < height)
+						{
+							if (adjacentCol >= 0 && adjacentCol < width)
+							{
+								// IF position we're looking at is NOT a mine
+								if (mArray[(width*adjacentRow) + adjacentCol] != -1)
+								{
+									// increment position by one
+									mArray[(width*adjacentRow) + adjacentCol]++;
+								}
+							}
+						}
+					}
+				} // END FOR adjacent positions
+			}
+		}
+	} // END FOR grid positions
+}
+
 
 void MGrid::displayGrid()
 {
@@ -98,6 +134,7 @@ void MGrid::displayGrid()
 		cout << endl;
 	}
 }
+
 
 void MGrid::placeMines()
 {
@@ -122,46 +159,12 @@ void MGrid::placeMines()
 				mArray[pos] = -1;
 			}
 			else
-			{
-				// minus counter to go around the loop again.
-				counter--;
+			{ 
+				counter--; // allow the loop to repeat if a position was NOT found
 			}
 
-			// once MINE is place increment counter
 			counter++;
 
 		} // END WHILE
 	}
-}
-
-void MGrid::dig(int colCoord, int rowCoord)
-{
-	bool isSafe = true;
-	int counter = 0;
-
-
-	// FOR 8 adjenscent positions
-	for (int row = rowCoord - 1; row <= rowCoord + 1; row++)
-	{
-		for (int col = colCoord - 1; col <= colCoord + 1; col++)
-		{
-			// IF position in bounds
-			if (row >= 0 && row < height)
-			{
-				if (col >= 0 && col < width)
-				{
-					// IF position is a mine
-					if (mArray[(width*row) + col] == -1)
-					{
-						// increment counter by one
-						counter++;
-					}
-				}
-			}
-		}
-	} // END for loop
-
-
-	// SET value at position to value of counter
-	mArray[(width*rowCoord) + colCoord] = counter;
 }

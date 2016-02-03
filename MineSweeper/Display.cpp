@@ -38,17 +38,19 @@ void Display::welcome()
 
 
 
+
 void Display::instructions()
 {
 	cout << "Select a coordinates (x, y) followed by one of the options below" << endl;
 	cout << "\t........................................." << endl;
 	cout << "\t:      To Dig coordinates press 'D'     :" << endl;
-	cout << "\t:     To Flag coordinates press 'F'     :" << endl;
+	cout << "\t: To Flag/ Unflag coordinates press 'F' :" << endl;
 	cout << "\t: To go back to the Main Menu press 'Q' :" << endl;
 	cout << "\t........................................." << endl;
 	cout << "__________________________________________________________" << endl;
 	cout << endl << endl;
 }
+
 
 
 void Display::winner()

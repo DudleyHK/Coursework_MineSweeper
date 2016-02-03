@@ -30,7 +30,7 @@ public:
 
 	bool mainMenu();
 	void mainMenuPlayGame();
-	void mainMenuDisplay();
+	void displaySettingsMenu();
 	bool mainMenuIsExit();
 
 	void menuValueIsInvaild(int userInput);
@@ -41,8 +41,8 @@ public:
 	/***************************Run Time*******************************/
 
 	bool playGame();
-	bool playGameIsHit();
-	bool playGameGoToMainMenu();
+	void playGameIsHit();
+	void resetGame();
 
 	void inputGridSize();
 	bool inputGridSizeErrorCheck();
@@ -53,6 +53,7 @@ public:
 	int actOnLetterInputDig();
 
 	void updateCounter();
+	bool checkIfPlayerWon();
 	void locateAllMines();
 
 	bool continueOrQuit();
@@ -80,7 +81,7 @@ private:
 
 	/* MODE AND CONTINUE OPTION */
 	int gameMode = 0;
-	bool continueGame = 0;
+	bool continueGame = false;
 
 	/* FLAG INFORMATION */
 	int correctFlags = 0, totalFlags = 0;
