@@ -21,6 +21,7 @@ public:
 	/*************************Data Access******************************/
 
 	MineSweeper();
+	~MineSweeper();
 	
 	void getNumberOfMines();
 	void passSize();
@@ -31,7 +32,6 @@ public:
 	bool mainMenu();
 	void mainMenuPlayGame();
 	void displaySettingsMenu();
-	bool mainMenuIsExit();
 
 	void menuValueIsInvaild(int userInput);
 
@@ -41,7 +41,7 @@ public:
 	/***************************Run Time*******************************/
 
 	bool playGame();
-	void playGameIsHit();
+	void gameLost();
 	void resetGame();
 
 	void inputGridSize();

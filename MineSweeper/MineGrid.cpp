@@ -30,7 +30,6 @@ MGrid::~MGrid()
 
 void MGrid::reset()
 {
-	// delte of the heap and set to no memory
 	delete[] mArray;
 	mArray = nullptr;
 	
@@ -51,7 +50,6 @@ int MGrid::getPos(int colCoord, int rowCoord)
 {
 	int numberAtPos = 0;
 
-	// SET variable to the value at position
 	numberAtPos = mArray[(width * rowCoord) + colCoord];
 
 	return numberAtPos;
@@ -62,7 +60,6 @@ int MGrid::getPos(int colCoord, int rowCoord)
 /*Fill the array with the standard number*/
 void MGrid::initialiseArray()
 {
-	// Create NEW array
 	mArray = new int[height*width];
 
 	for (int r = 0; r < height; r++)
@@ -73,10 +70,8 @@ void MGrid::initialiseArray()
 		}
 	}
 
-	// randomly set mine positions
 	placeMines();
 
-	// UPDATE grid accordingly.
 	mineGridCalculations();
 }
 
@@ -127,7 +122,6 @@ void MGrid::displayGrid()
 	{
 		for (int c = 0; c < width; c++)
 		{
-			// output value at position
 			cout << mArray[(width*r) + c] << ' ';
 		}
 
