@@ -38,7 +38,7 @@ public:
 	void settingsMenu();
 	bool loadGame();		
 
-	/***************************Run Time*******************************/
+	/****************************Playing********************************/
 
 	bool playGame();
 	void gameLost();

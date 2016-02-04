@@ -21,14 +21,15 @@ VGrid::VGrid()
 
 }
 
+
 VGrid::~VGrid()
 {
 	reset();
 }
 
+
 void VGrid::reset()
 {
-	// delete off heap and point back to no memory
 	delete[] vArray;
 	vArray = nullptr;
 
@@ -56,6 +57,7 @@ char VGrid::getPos(int colCoord, int rowCoord)
 	return characterAtPos;
 }
 
+
 /* SET array position to currentChar */
 void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 {
@@ -64,6 +66,7 @@ void VGrid::setPos(int colCoord, int rowCoord, char currentChar)
 
 
 /***************************Run Time*******************************/
+
 
 /*Fill the array with the standard character*/
 void VGrid::initialiseArray()
@@ -83,7 +86,7 @@ void VGrid::initialiseArray()
 
 void VGrid::displayGrid()
 {
-	int columnNo = 0, rowNo = 0;
+	int rowNo = 0;
 
 	// FOR every row
 	for (int r = 0; r < height; r++)
@@ -106,10 +109,7 @@ void VGrid::displayGrid()
 		{
 
 			cout << vArray[(width*r) + c] << ' ';
-			columnNo++;
 		}
-
-		columnNo = 0;
 
 		cout << endl;
 	}
@@ -186,7 +186,6 @@ void VGrid::changeIntToChar(int colCoord, int rowCoord, int number)
 		break;
 	}
 
-	// set position of vArray = to char
 	setPos(colCoord, rowCoord, setChar);
 }
 

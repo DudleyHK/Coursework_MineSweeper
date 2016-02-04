@@ -260,7 +260,7 @@ bool MineSweeper::loadGame()
 	return continueGame;
 }
 
-/***************************Run Time*******************************/
+/****************************Playing********************************/
 
 bool MineSweeper::playGame()
 {
@@ -273,15 +273,8 @@ bool MineSweeper::playGame()
 
 	display->instructions();
 
-
-	if (numberOfMines > 1)
-	{
-		cout << numberOfMines << " mines are hidden." << endl;
-	}
-	else
-	{
-		cout << numberOfMines << " mine is hidden." << endl;
-	}
+	// print how many mines are hidden message
+	cout << numberOfMines << " mines are hidden." << endl;
 
 
 	inGame = true;
@@ -327,14 +320,11 @@ bool MineSweeper::playGame()
 
 void MineSweeper::gameLost()
 {
-	int numOfMinesDisplayed = 0;
-
-	// WHILE the number of mines displayed is NOT equal to the amount of mines
-	while (numOfMinesDisplayed <= numberOfMines)
+	// WHILE the number of mines displayed is less than total number of mines
+	for (int numOfMinesDisplayed = 0; numOfMinesDisplayed <= numberOfMines; 
+		numOfMinesDisplayed++)
 	{
 		locateAllMines();
-
-		numOfMinesDisplayed++;
 	}
 
 	visualGrid->displayGrid();
