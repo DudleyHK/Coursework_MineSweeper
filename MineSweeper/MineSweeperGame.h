@@ -23,14 +23,14 @@ public:
 	MineSweeper();
 	~MineSweeper();
 	
-	void getNumberOfMines();
+	void setNumberOfMines();
 	void passSize();
 	void createNewCoords();
 
 	/****************************PreGame*******************************/
 
 	bool mainMenu();
-	void mainMenuPlayGame();
+	void startGame();
 	void displaySettingsMenu();
 
 	void menuValueIsInvaild(int userInput);

@@ -1,7 +1,8 @@
 /*
 	Solution: Mine Sweeper Game	
 	Author: Dudley Dawes
-	Summary: Class Functions and compliers start point main().
+	Summary: Class Functions and compliers start point main(). All system calls are windows
+				specifc ie system ("cls").
 */
 
 #include "MineSweeperGame.h"
@@ -44,19 +45,22 @@ MineSweeper::MineSweeper()
 	// constuctor
 }
 
+
 MineSweeper::~MineSweeper()
 {
 	// empty
 }
 
+
 /* return default values if game mode is 0. Else calculate number of mines 
 based on the difficult mode.*/
-void MineSweeper::getNumberOfMines()
+void MineSweeper::setNumberOfMines()
 {
 	int area = height * width;
 
 	numberOfMines = settings.getNumberOfMines(area, gameMode);
 }
+
 
 /*Pass Height, Width and Number of Mines to the Mine Grid and Visual Grid*/
 void MineSweeper::passSize()
@@ -97,7 +101,7 @@ bool MineSweeper::mainMenu()
 		switch (userInput)
 		{
 		case 1:
-			mainMenuPlayGame();
+			startGame();
 			break;
 
 		case 2:
@@ -134,7 +138,7 @@ bool MineSweeper::mainMenu()
 }
 
 
-void MineSweeper::mainMenuPlayGame()
+void MineSweeper::startGame()
 {
 	// IF game mode has NOT been selected
 	if (gameMode == -1)
@@ -146,7 +150,7 @@ void MineSweeper::mainMenuPlayGame()
 		width = settings.getDefaultWidth();
 	}
 
-	getNumberOfMines();
+	setNumberOfMines();
 
 	// clear console
 	system("cls");
@@ -237,7 +241,7 @@ void MineSweeper::settingsMenu()
 		width = settings.getDefaultWidth();		
 	}
 
-	getNumberOfMines();
+	setNumberOfMines();
 	
 	// clear the console
 	system("cls");

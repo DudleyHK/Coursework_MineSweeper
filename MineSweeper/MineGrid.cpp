@@ -20,7 +20,7 @@ MGrid::MGrid()
 	width(0),
 	numberOfMines(0)
 {
-	// constructor
+	// empty
 }
 
 MGrid::~MGrid()
