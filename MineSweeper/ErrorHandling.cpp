@@ -56,12 +56,11 @@ int ErrorHandling::validateHeightWidth(int height, int width, int gameMode)
 }
 
 /*Function to deal with the user input coordinate guess and if action letter character
-is valid */
+is valid. Decrement height and width by one to counter act the program starting them 
+at zero*/
 void ErrorHandling::validateCoordinates(int coordCol, int coordRow, char actionLetter,
 	int height, int width)
 {
-	
-	// Check coordinates 
 	if (coordCol < 0 || coordCol > width - 1)
 	{
 		errorNumber = 7;
@@ -89,10 +88,8 @@ void ErrorHandling::validateCoordinates(int coordCol, int coordRow, char actionL
 }
 
 /*This function prints out a message depending on the number passed in*/
-void ErrorHandling::printMessage(int n)
+void ErrorHandling::printMessage(int errorNumber)
 {
-	errorNumber = n;
-
 	switch (errorNumber)
 	{
 	case 9:

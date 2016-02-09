@@ -28,6 +28,7 @@ MGrid::~MGrid()
 	reset();
 }
 
+
 void MGrid::reset()
 {
 	delete[] mArray;

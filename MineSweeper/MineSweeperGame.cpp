@@ -269,7 +269,6 @@ bool MineSweeper::loadGame()
 bool MineSweeper::playGame()
 {
 	bool inGame = false;
-	int mine = -1;
 
 	// SET unused value
 	returnCode = 5;
@@ -484,7 +483,7 @@ bool MineSweeper::inputCoordinatesErrorCheck()
 
 void MineSweeper::actOnLetterInput()
 {
-	bool isFlagged = false, isSafe = false;
+	bool isFlagged = false;
 
 
 	switch (actionLetter)
@@ -540,25 +539,23 @@ bool MineSweeper::checkIfPlayerWon()
 {
 	bool inGame = true;
 
-	if (returnCode != 1)
+
+	// update number of correctly flagged mines
+	updateCounter();
+
+	if (correctFlags == numberOfMines && totalFlags == numberOfMines)
 	{
-		// update number of correctly flagged mines
-		updateCounter();
+		// Print a line.
+		cout << endl;
+		cout << "===============================================" << endl << endl;
 
-		if (correctFlags == numberOfMines && totalFlags == numberOfMines)
-		{
-			// Print a line.
-			cout << endl;
-			cout << "===============================================" << endl << endl;
+		// output the visual grid.
+		visualGrid->displayGrid();
+		display->winner();
 
-			// output the visual grid.
-			visualGrid->displayGrid();
-			display->winner();
+		continueGame = continueOrQuit();
 
-			continueGame = continueOrQuit();
-
-			inGame = false;
-		}
+		inGame = false;
 	}
 
 	return inGame;
@@ -603,7 +600,7 @@ void MineSweeper::locateAllMines()
 {
 	int valueAtPos = 0;
 
-	for (int r = 0; r < width; r++)
+	for (int r = 0; r < height; r++)
 	{
 		for (int c = 0; c < width; c++)
 		{
@@ -645,7 +642,6 @@ bool MineSweeper::continueOrQuit()
 			isRepeat = false;
 
 			resetGame();
-
 			break;
 
 		case 'N':
@@ -662,5 +658,6 @@ bool MineSweeper::continueOrQuit()
 			break;
 		}
 	}
+
 	return continueGame;
 }
