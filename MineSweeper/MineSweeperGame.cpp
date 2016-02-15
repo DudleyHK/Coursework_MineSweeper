@@ -235,14 +235,8 @@ void MineSweeper::settingsMenu()
 	{
 		inputGridSize();
 	}
-	else
-	{
-		height = settings.getDefaultHeight();
-		width = settings.getDefaultWidth();		
-	}
-
-	setNumberOfMines();
 	
+
 	// clear the console
 	system("cls");
 
