@@ -6,6 +6,8 @@
 				an integer value and changing it into a char to be displayed after 
 				each turn.
 */
+#include <iostream>
+using namespace std;
 
 class VGrid
 {

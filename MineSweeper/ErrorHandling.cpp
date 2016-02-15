@@ -5,9 +5,6 @@
 */
 #include "ErrorHandling.h"
 
-#include <iostream>
-using namespace std;
-
 
 ErrorHandling::ErrorHandling()
 {

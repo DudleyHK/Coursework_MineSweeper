@@ -6,6 +6,9 @@
 				function. These functions get passed information in their parameters
 				to avoid confussion and a clutter of Get and Set functions.
 */
+#include <iostream>
+using namespace std;
+
 
 class ErrorHandling
 {

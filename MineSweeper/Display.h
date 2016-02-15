@@ -4,6 +4,10 @@
 	Summary: This class is used to output user interface displays.
 */
 
+#include <iostream>
+using namespace std;
+
+
 class Display
 {
 public:

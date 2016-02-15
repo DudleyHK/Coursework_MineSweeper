@@ -6,9 +6,6 @@
 
 #include "Settings.h"
 
-#include <iostream>
-using namespace std;
-
 
 /*************************Data Access******************************/
 

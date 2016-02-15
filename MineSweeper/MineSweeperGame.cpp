@@ -7,9 +7,6 @@
 
 #include "MineSweeperGame.h"
 
-#include <iostream>
-using namespace std;
-
 
 /**START**/
 int main()

@@ -7,6 +7,9 @@
 				assign the numberOfMines whether its for a default or standard game.
 */
 
+#include <iostream>
+using namespace std;
+
 class Settings
 {
 public:

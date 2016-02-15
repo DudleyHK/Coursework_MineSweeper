@@ -13,6 +13,9 @@
 #include "Display.h"
 #include "ErrorHandling.h"
 
+#include <iostream>
+using namespace std;
+
 class MineSweeper
 {
 public:
